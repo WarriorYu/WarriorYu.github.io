@@ -1,7 +1,10 @@
 ---
-title: 搭建个人博客基本指令
+title: 搭建个人博客和Git的基本指令
 date: 2018-09-17 18:57:10
-tags: 个人博客
+categories: 
+- 博客搭建
+tags: 
+- 个人博客/Git
 ---
 
 
@@ -201,7 +204,30 @@ $ git ls-files --stage/-s   注：show staged contents' object name in the outpu
 $ git add "test.md"
 ```
 
-提交：
+先拉取最新的代码
+
+```
+git pull origin code 
+```
+
+结果；
+
+```
+➜  _posts git:(code) ✗ git pull origin code 
+From https://github.com/WarriorYu/WarriorYu.github.io
+ * branch            code       -> FETCH_HEAD
+Already up-to-date.
+```
+
+
+
+提交：-m后面添加提交的备注
+
+```
+git commit -m "add test.md"    
+```
+
+
 
 ```
 ➜  _posts git:(code) ✗ git commit -m "add test.md"
@@ -213,6 +239,14 @@ $ git add "test.md"
 推送到远程仓库：
 
 ```
-$ git push 
+$ git push origin code
+```
+结果：
+```
+➜  _posts git:(code) ✗ git push origin code
+Everything up-to-date
 ```
 
+### 参考文章
+
+[Android ABI的浅析](https://www.jianshu.com/p/d2119b3880d8)

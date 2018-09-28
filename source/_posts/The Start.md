@@ -1,7 +1,10 @@
 ---
 title: The Start
 date: 2018-07-30 12:01:01
+categories: 
+- 杂谈
 tags:
+- 感悟
 ---
 ![The Start](/images/icon_1.jpeg)
 

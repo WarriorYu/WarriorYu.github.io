@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,13 +79,16 @@
 
 
 
+<meta name="description" content="Stay Hungry. Stay Foolish.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WarriorYu">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="WarriorYu">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Stay Hungry. Stay Foolish.">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WarriorYu">
+<meta name="twitter:description" content="Stay Hungry. Stay Foolish.">
 
 
 
@@ -93,15 +96,15 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -133,7 +136,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -182,17 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
+            首页
           </a>
         </li>
       
@@ -202,7 +195,17 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -212,7 +215,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -249,12 +252,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/搭建个人博客基本指令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/Android-ABI、CPU、so文件浅析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WarriorYu">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -268,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/17/搭建个人博客基本指令/" itemprop="url">搭建个人博客基本指令</a></h1>
+                <a class="post-title-link" href="/2018/09/28/Android-ABI、CPU、so文件浅析/" itemprop="url">Android ABI、CPU、so文件浅析</a></h1>
         
 
         <div class="post-meta">
@@ -278,9 +281,198 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T18:57:10+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T15:56:45+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CPU/" itemprop="url" rel="index">
+                    <span itemprop="name">CPU</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Android-ABI的概念"><a href="#Android-ABI的概念" class="headerlink" title="Android ABI的概念"></a>Android ABI的概念</h3><p>ABI全称:Application binary interface(应用程序二进制接口),定义了一套规则,允许编译好的二进制目标代码能在所有兼容该ABI的操作系统中无需改动就能运行。</p>
+<p>不同的Android手机使用不同的CPU,因此需要提供对应的二进制接口交互规则(即对应的ABI文件)才能进行交互。</p>
+<p>部分CPU是能支持多种交互规则，但这是在牺牲性能的前提下所做的兼容。</p>
+<p>主流的ABI架构</p>
+<ol>
+<li>armeabiv-v7a: 第7代及以上的 ARM 处理器。2011年以后的生产的大部分Android设备都使用它。</li>
+<li>arm64-v8a: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。</li>
+<li>armeabi: 第5代、第6代的ARM处理器，早期的手机用的比较多。</li>
+<li>x86: 平板、模拟器用得比较多。</li>
+<li>x86_64: 64位的平板。</li>
+</ol>
+<h3 id="ABI和CPU的关系"><a href="#ABI和CPU的关系" class="headerlink" title="ABI和CPU的关系"></a>ABI和CPU的关系</h3><p>当一个应用被安装在设备上时，只有该设备支持的CPU架构对应的.so文件会被安装,如果支持多个ABI架构，会按照优先级进行按照具体的支持类型如下</p>
+<p><strong>ARMv5(CPU)</strong>:armeabi(ABI)<br> <strong>ARMv7</strong>:armeabi,armeabi-v7a<br> <strong>ARMv8</strong>:armeabi,armeabi-v7a，arm64-v8a<br> <strong>MIPS</strong>:mips<br> <strong>MIPS64</strong>:mips,mips64<br> <strong>x86</strong>:x86(1),armeabi(2),armeabi-v7a(3)<br> <strong>x86_64</strong>:armeabi,x86,x86_64</p>
+<p>可以看出CPU大都是向前兼容的,但是选择ABI时会有个优先级。</p>
+<p>比如X86型的CPU,优先选择x86目录下的.so包，如果存在，就不会再安装其他支持的ABI架构;如果没有x86目录，才会选择armeabi-v7a目录下的.so，最后才会选择armeabi目录下的.so文件。</p>
+<blockquote>
+<p>ps:X86设备虽然能够运行armeabi下的so库，但可能会损失性能，而且不能保证一定不会发生crash,尤其是有小公司出产的so库</p>
+</blockquote>
+<h2 id="使用过程中的问题"><a href="#使用过程中的问题" class="headerlink" title="使用过程中的问题"></a>使用过程中的问题</h2><h3 id="so文件，放入了优先级低的ABI目录"><a href="#so文件，放入了优先级低的ABI目录" class="headerlink" title=".so文件，放入了优先级低的ABI目录"></a>.so文件，放入了优先级低的ABI目录</h3><p>设备CPU架构是ARMv7，ABI文件是armeabi-v7a,但是放进了armeabi目录中</p>
+<p>1.如果项目中有armeabi-v7a目录，目录下没有so库，ARMv7优先加载armeabi-v7a目录，发现没有对应的so库，会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.UnsatisfiedLinkError</span><br></pre></td></tr></table></figure>
+<p>2.项目中只有armeabi的目录,ARMv7会加载armeabi目录,同时加载目录下的so库，相当于加载了一个armeabi规则的so库，因为向前兼容的特性，不会报错，也能运行，但性能会损失。</p>
+<h3 id="so文件放入优先级高的ABI目录"><a href="#so文件放入优先级高的ABI目录" class="headerlink" title=".so文件放入优先级高的ABI目录"></a>.so文件放入优先级高的ABI目录</h3><p>设备CPU架构是ARMv7，ABI文件是armeabi,但是放进了armeabi-v7a目录中下。</p>
+<p>可以被加载，但是能不能被使用？我也不确定。因为armeabi的so库不一定能支持armeabi-v7a定下的接口交互规则。</p>
+<h3 id="多个第三方的SDK中的ABI文件优先级不一样。"><a href="#多个第三方的SDK中的ABI文件优先级不一样。" class="headerlink" title="多个第三方的SDK中的ABI文件优先级不一样。"></a>多个第三方的SDK中的ABI文件优先级不一样。</h3><blockquote>
+<p>两个第三方的SDK中ABI文件优先级不一样，手机加载运行时，会导致优先级低的库，无法被加载</p>
+</blockquote>
+<p>我的手机cpu架构是ARMv7，项目中使用两个第三方SDK：企业A和企业B</p>
+<p>企业A：ABI文件是armeabi-v7a，放进armeabi-v7a目录中。<br> 企业B：ABI文件是armeabi-v5te，放进armeabi目录中。</p>
+<p>在运行时，会发现运行后crash，出现如下log信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.UnsatisfiedLinkError</span><br></pre></td></tr></table></figure>
+<p>这是因为低优先级的也就是企业B的so包没有被加载进来，也就无法正常使用导致报错。</p>
+<p><strong>解决办法：</strong></p>
+<p>1、使用同一优先级的ABI文件，ABI文件放入优先级相同的ABI目录</p>
+<p>企业A：ABI文件是armeabi-v5te，放进armeabi目录中。<br> 企业B：ABI文件是armeabi-v5te，放进armeabi目录中。<br> 或</p>
+<p>企业A：ABI文件是armeabi-v7a，放进armeabi-v7a目录中。<br> 企业B：ABI文件是armeabi-v7a，放进armeabi-v7a目录中。</p>
+<p>2、使用不同优先级的ABI文件，ABI文件放入优先级相同的ABI目录。一般情况不建议这么做。</p>
+<p>企业A：ABI文件是armeabi-v7a，但是放进armeabi目录中。<br> 企业B：ABI文件是armeabi-v5te，放进armeabi目录中。<br> 或</p>
+<p>企业A：ABI文件是armeabi-v7a，放进armeabi-v7a目录中。<br> 企业B：ABI文件是armeabi-v5te，但是放进armeabi-v7a目录中。</p>
+<h3 id="so文件的重要法则"><a href="#so文件的重要法则" class="headerlink" title="so文件的重要法则"></a>so文件的重要法则</h3><p>处理.so文件时有一条简单却并不知名的重要法则。<br> 你应该尽可能的提供专为每个ABI优化过的.so文件</p>
+<h3 id="NDK的兼容性"><a href="#NDK的兼容性" class="headerlink" title="NDK的兼容性"></a>NDK的兼容性</h3><p>使用NDK时，选择app的minsdkVersion对应的编译平台，因为NDK是向后兼容的</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p><strong>所有ABI文件夹提供的so要保持一致</strong></p>
+<p>如果我们的应用选择了支持多个ABI，要十分注意：对于每个ABI下的so，但要么全部支持，要么都不支持。不应该混合着使用，而应该为每个ABI目录提供对应的.so文件。</p>
+<h3 id="支持过多的so会导致apk体积增大"><a href="#支持过多的so会导致apk体积增大" class="headerlink" title="支持过多的so会导致apk体积增大"></a>支持过多的so会导致apk体积增大</h3><p>第一种：支持全部的7种ABI架构,APK大小为70M</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">defaultConfig &#123;</span><br><span class="line">        ndk &#123;</span><br><span class="line">        abiFilters &quot;armeabi&quot;, &quot;armeabi-v7a&quot;, &quot;arm64-v8a&quot;, &quot;mips&quot;, &quot;mips64&quot;, &quot;x86&quot;, &quot;x86_64&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p> 第二种：支持一种ABI架构,APK大小为30M</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">defaultConfig &#123;</span><br><span class="line">        ndk &#123;</span><br><span class="line">        abiFilters &quot;armeabi-v7a&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.jianshu.com/p/d2119b3880d8" target="_blank" rel="noopener">Android ABI的浅析</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/搭建个人博客和Git的基本指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/17/搭建个人博客和Git的基本指令/" itemprop="url">搭建个人博客和Git的基本指令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T18:57:10+08:00">
                 2018-09-17
               </time>
             
@@ -290,6 +482,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">博客搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -326,6 +540,60 @@
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="Git-的使用"><a href="#Git-的使用" class="headerlink" title="Git 的使用"></a>Git 的使用</h3><h3 id="Git-文件状态介绍"><a href="#Git-文件状态介绍" class="headerlink" title="Git 文件状态介绍"></a>Git 文件状态介绍</h3><ul>
+<li><strong>已修改（modified）</strong> ———— 表示修改了文件，但还没保存到数据库中</li>
+<li><strong>已暂存（staged）</strong> ———— 表示对一个已修改文件的当前版本做了追踪，使之包含在下次提交的快照中</li>
+<li><strong>已提交（committed）</strong>———— 表示数据已经安全的保存在本地数据库中</li>
+</ul>
+<h3 id="Git-常用命令速查表"><a href="#Git-常用命令速查表" class="headerlink" title="Git 常用命令速查表"></a>Git 常用命令速查表</h3><p><strong>创建版本库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;url&gt;                  #克隆远程版本库</span><br><span class="line">$ git init                         #初始化本地版本库</span><br></pre></td></tr></table></figure>
+<p><strong>修改和提交</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status                       #查看状态</span><br><span class="line">$ git diff                         #查看变更内容</span><br><span class="line">$ git add .                        #跟踪所有改动过的文件</span><br><span class="line">$ git add &lt;file&gt;                   #跟踪指定的文件</span><br><span class="line">$ git mv &lt;old&gt;&lt;new&gt;                #文件改名</span><br><span class="line">$ git rm&lt;file&gt;                     #删除文件</span><br><span class="line">$ git rm --cached&lt;file&gt;            #停止跟踪文件但不删除</span><br><span class="line">$ git commit -m &quot;commit messages&quot;  #提交所有更新过的文件</span><br><span class="line">$ git commit --amend               #修改最后一次改动</span><br></pre></td></tr></table></figure>
+<p><strong>查看提交历史</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git log                    #查看提交历史</span><br><span class="line">$ git log -p &lt;file&gt;          #查看指定文件的提交历史</span><br><span class="line">$ git blame &lt;file&gt;           #以列表方式查看指定文件的提交历史</span><br></pre></td></tr></table></figure>
+<p><strong>撤销</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD      #撤销工作目录中所有未提交文件的修改内容</span><br><span class="line">$ git checkout HEAD &lt;file&gt;   #撤销指定的未提交文件的修改内容</span><br><span class="line">$ git revert &lt;commit&gt;        #撤销指定的提交</span><br><span class="line">$ git log --before=&quot;1 days&quot;  #退回到之前1天的版本</span><br></pre></td></tr></table></figure>
+<p><strong>分支与标签</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git branch                   #显示所有本地分支</span><br><span class="line">$ git checkout &lt;branch/tag&gt;    #切换到指定分支和标签</span><br><span class="line">$ git branch &lt;new-branch&gt;      #创建新分支</span><br><span class="line">$ git branch -d &lt;branch&gt;       #删除本地分支</span><br><span class="line">$ git tag                      #列出所有本地标签</span><br><span class="line">$ git tag &lt;tagname&gt;            #基于最新提交创建标签</span><br><span class="line">$ git tag -d &lt;tagname&gt;         #删除标签</span><br></pre></td></tr></table></figure>
+<p><strong>合并与衍合</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;branch&gt;        #合并指定分支到当前分支</span><br><span class="line">$ git rebase &lt;branch&gt;       #衍合指定分支到当前分支</span><br></pre></td></tr></table></figure>
+<p><strong>远程操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v                   #查看远程版本库信息</span><br><span class="line">$ git remote show &lt;remote&gt;        #查看指定远程版本库信息</span><br><span class="line">$ git remote add &lt;remote&gt; &lt;url&gt;   #添加远程版本库</span><br><span class="line">$ git fetch &lt;remote&gt;              #从远程库获取代码</span><br><span class="line">$ git pull &lt;remote&gt; &lt;branch&gt;      #下载代码及快速合并</span><br><span class="line">$ git push &lt;remote&gt; &lt;branch&gt;      #上传代码及快速合并</span><br><span class="line">$ git push &lt;remote&gt; :&lt;branch/tag-name&gt;  #删除远程分支或标签</span><br><span class="line">$ git push --tags                       #上传所有标签</span><br></pre></td></tr></table></figure>
+<p>推送代码到远程仓库</p>
+<p>在终端运行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>，将文件推送到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br><span class="line">Counting objects: 8, done.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (4/4), done.</span><br><span class="line">Writing objects: 100% (8/8), 626 bytes | 626.00 KiB/s, done.</span><br><span class="line">Total 8 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https://git.coding.net/Yangconghou/learn_git.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+<p><code>git push</code>是推送命令，实际上是把本地的<code>master</code>分支推送到了远程仓库，相当于在远程有了一个代码仓库的备份。</p>
+<blockquote>
+<p>使用 Git 管理文件时，每次结束工作前请依次执行<code>git add</code>、<code>git commit</code>和<code>git push</code>命令将文件推送到 远程仓库。</p>
+</blockquote>
+<p>1、查看本地分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">结果：</span><br><span class="line">➜  WarriorYu.github.io git:(code) ✗ git branch</span><br><span class="line">* code</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+<p>2、  list both remote-tracking and local branches (查看所有分支)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">结果：</span><br><span class="line">➜  WarriorYu.github.io git:(code) ✗ git branch -a </span><br><span class="line">* code</span><br><span class="line">  master</span><br><span class="line">  remotes/origin/code</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+<p>3、我想看一下暂存区（staging area）里的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-files</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  _posts git:(code) ✗ git ls-files </span><br><span class="line">The Start.md</span><br><span class="line">test.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-files --stage/-s   注：show staged contents&apos; object name in the output</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  _posts git:(code) ✗ git ls-files --stage</span><br><span class="line">100644 a06e35bb0bbcc29593483ce13b37f9b4d28cd585 0	The Start.md</span><br><span class="line">100644 a06e35bb0bbcc29593483ce13b37f9b4d28cd585 0	test.md</span><br></pre></td></tr></table></figure>
+<p>4、在我的<em>post文件夹里</em>新建一个test.md文件，并推到远程仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &quot;test.md&quot;</span><br></pre></td></tr></table></figure>
+<p>先拉取最新的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin code</span><br></pre></td></tr></table></figure>
+<p>结果；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  _posts git:(code) ✗ git pull origin code </span><br><span class="line">From https://github.com/WarriorYu/WarriorYu.github.io</span><br><span class="line"> * branch            code       -&gt; FETCH_HEAD</span><br><span class="line">Already up-to-date.</span><br></pre></td></tr></table></figure>
+<p>提交：-m后面添加提交的备注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;add test.md&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  _posts git:(code) ✗ git commit -m &quot;add test.md&quot;</span><br><span class="line">[code 9145a31] add test.md</span><br><span class="line"> 1 file changed, 10 insertions(+)</span><br><span class="line"> create mode 100644 source/_posts/test.md</span><br></pre></td></tr></table></figure>
+<p>推送到远程仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin code</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  _posts git:(code) ✗ git push origin code</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/d2119b3880d8" target="_blank" rel="noopener">Android ABI的浅析</a></p>
 
           
         
@@ -379,7 +647,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WarriorYu">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -403,9 +671,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T19:00:31+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T19:00:31+08:00">
                 2018-09-13
               </time>
             
@@ -415,6 +683,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -509,7 +799,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WarriorYu">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -533,9 +823,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-30T12:01:01+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T12:01:01+08:00">
                 2018-07-30
               </time>
             
@@ -545,6 +835,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂谈/" itemprop="url" rel="index">
+                    <span itemprop="name">杂谈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -648,8 +960,12 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
               <p class="site-author-name" itemprop="name">WarriorYu</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -659,22 +975,31 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -682,6 +1007,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -719,7 +1060,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -727,7 +1068,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -826,6 +1167,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
 

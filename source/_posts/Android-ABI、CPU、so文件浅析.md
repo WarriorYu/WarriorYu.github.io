@@ -139,4 +139,6 @@ defaultConfig {
 
  
 
- 
+###  参考
+
+[Android ABI的浅析](https://www.jianshu.com/p/d2119b3880d8)
