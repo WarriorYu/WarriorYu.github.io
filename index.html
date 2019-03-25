@@ -294,6 +294,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -323,7 +345,95 @@
       
         
           
-            
+            <ol>
+<li><p><strong>概念</strong>：数据结构指的是“一组数据的存储结构”，算法指的是“操作数据的一组算法”。</p>
+</li>
+<li><p><strong>大O时间复杂度表示法</strong>（T(n)=O(f(n)）：</p>
+<p><strong>所有代码的执行时间 T(n) 与每行代码的执行次数 n 成正比</strong></p>
+<p>大O时间复杂度实际上并不具体表示代码真正的执行时间，而是表示<strong>代码执行时间随数据规模增长的变化趋势</strong>，所以，也叫作<strong>渐进时间复杂度</strong>（asymptotic time complexity）,简称<strong>时间复杂度</strong>。</p>
+</li>
+<li><p><strong>复杂度量级（按数量级递增）</strong> </p>
+<ul>
+<li>常量阶 O(1)</li>
+<li>对数阶 O(logn)</li>
+<li>线性阶 O(n)</li>
+<li>线性对数阶 O(nlogn)</li>
+<li>平方阶 O(n²)</li>
+<li>立方阶 O(n³) </li>
+<li>K次方阶 O(n^k^)</li>
+<li>指数阶 O(2^n^)</li>
+<li>阶乘阶 O(n!)</li>
+</ul>
+</li>
+<li><p><strong>空间复杂度分析</strong></p>
+<p>时间复杂度的全称是<strong>渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系</strong>。类比一下，空间复杂度全称就是<strong>渐进空间复杂度</strong>（asymptotic space complexity），<strong>表示算法的存储空间与数据规模之间的增长关系</strong>。</p>
+<p>常见的复杂度并不多，从低阶到高阶有：O(1)、O(logn)、O(n)、O(nlogn)、O(n2 )</p>
+</li>
+<li><p><strong>最好情况时间复杂度</strong>（best case time complexity）、<strong>最坏情况时间复杂度</strong>（worst case time complexity）、<strong>平均情况时间复杂度</strong>（average case time complexity）、<strong>均摊时间复杂度</strong>（amortized time complexity）。</p>
+</li>
+<li><p><strong>数组</strong><br><strong>数组</strong>（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据。</p>
+<p>  <strong>如何实现随机访问？</strong></p>
+<ul>
+<li>第一是<strong>线性表</strong>。（<strong>线性表</strong>：数组、链表、队列、栈 <strong>非线性表</strong>：树 图）</li>
+<li>第二个是<strong>连续的内存空间和相同类型的数据</strong></li>
+<li>正是因为这两个限制，它才有了一个堪称“杀手锏”的特性：“随机访问”。但有利就有弊，这两个限制也让数组的很多操作变得非常低效，比如要想在数组中删除、插入一个数据，为了保证连续性，就需要做大量的数据搬移工作。</li>
+</ul>
+</li>
+<li><p><strong>数组是如何实现根据下标随机访问数组元素的</strong></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 拿一个长度为 10 的 int 类型的数组 int[] a = new int[10] 来举例:</span><br><span class="line"></span><br><span class="line"> 计算机会给每个内存单元分配一个地址，计算机通过地址来访问内存中的数据。当计算机需要随机访问数组中的某个元素时，它会首先通过下面的寻址公式，计算出该元素存储的内存地址：</span><br><span class="line"></span><br><span class="line">a[i]_address = base_address + i * data_type_size</span><br></pre></td></tr></table></figure>
+<pre><code>内存块的首地址为 **base_address** = 1000。
+**data_type_size** 表示数组中每个元素的大小
+</code></pre><ol start="8">
+<li><p>*数组和链表的区别**</p>
+<p>“链表适合插入、删除，时间复杂度 O(1)；数组适合查找，查找时间复杂度为 O(1)”。</p>
+<p>实际上，这种表述是不准确的。数组是适合查找操作，但是查找的时间复杂度并不为 O(1)。即便是排好序的数组，你用二分查找，时间复杂度也是 O(logn)。所以，正确的表述应该是，数组支持随机访问，根据下标随机访问的时间复杂度为 O(1)。</p>
+</li>
+<li><p>数组为了保持内存数据的连续性，会导致插入、删除这两个操作比较低    </p>
+<p><strong>低效的“插入”和“删除”</strong>的优化：</p>
+<p><strong>插入</strong></p>
+</li>
+</ol>
+<ul>
+<li>长度是n的数组，在第K个位置插入一个数据，需要将第k~n这部分的元素都顺序往后挪一位。</li>
+<li>如果在末尾插入元素，不需要移动数据，这时的时间复杂度是O(1)。</li>
+<li>如果在数组的开头插入数据，那所有数据都需要往后移动一位，所以最坏时间复杂度是O(n)。</li>
+<li>由于在每个位置插入元素的概率是一样的，所有平均情况时间复杂度为 (1+2+…n)/n=O(n)。</li>
+<li>如果数组存储的数据没有任何规律，直接将第K位的数据搬移到数组元素的最后，把新的元素直接放入第K个位置。这种处理技巧下，在第 k 个位置插入一个元素的时间复杂度就会降为 O(1)。</li>
+</ul>
+<p><strong>删除</strong></p>
+<ul>
+<li>和插入类似，如果删除数组末尾的数据，则最好情况时间复杂度为 O(1)；如果删除 开头的数据，则最坏情况时间复杂度为 O(n)；平均情况时间复杂度也为 O(n)。</li>
+<li>数组 a[10] 中存储了 8 个元素：a，b，c，d，e，f，g，h。现在，我们要依次删除 a，b，c 三个元素。</li>
+<li>为了避免 d，e，f，g，h 这几个数据会被搬移三次，我们可以先记录下已经删除的数据。每次的删除操作并不是真正地搬移数据，只是记录数据已经被删除。当数组没有更多空间存储数据时，我们再触发执行一次真正的删除操作，这样就大大减少了删除操作导致的数据搬移。</li>
+</ul>
+<ol start="10">
+<li><strong>容器能否完全替代数组</strong>？</li>
+</ol>
+<ul>
+<li>ArrayList 最大的优势就是<strong>可以将很多数组操作的细节封装起来</strong>。比如前面提到的数组插入、删除数据时需要搬移其他数据等。另外，它还有一个优势，就是<strong>支持动态扩容</strong>。</li>
+<li>扩容操作涉及内存申请和数据搬移，是比较耗时的。所以，如果事先能确定需要存储的数据大小，最好<strong>在创建 ArrayList 的时候事先指定数据大小</strong>。</li>
+</ul>
+<ol start="11">
+<li><strong>有些时候，用数组会更合适些</strong></li>
+</ol>
+<ul>
+<li>Java ArrayList 无法存储基本类型，比如 int、long，需要封装为 Integer、Long 类，而 Autoboxing、Unboxing 则有一定的性能消耗，所以如果特别关注性能，或者希望使用基本类型，就可以选用数组</li>
+<li>如果数据大小事先已知，并且对数据的操作非常简单，用不到 ArrayList 提供的大部分方法，也可以直接使用数组。</li>
+<li>当要表示多维数组时，用数组往往会更加直观。比如 Object[][] array；而用容器的话则需要这样定义：ArrayList<arraylist> array.</arraylist></li>
+</ul>
+<p>总结，对于业务开发，直接使用容器就足够了，省时省力。毕竟损耗一丢丢性能，完全不会影响到系统整体的性能。但如果你是做一些非常底层的开发，比如开发网络框架，性能的优化需要做到极致，这个时候数组就会优于容器，成为首选。</p>
+<ol start="12">
+<li><strong>为什么大多数编程语言中，数组要从 0 开始编号，而不是从 1 开始呢？</strong></li>
+</ol>
+<p>从数组存储的内存模型上来看，“下标”最确切的定义应该是“偏移（offset）”。如果用 a 来表示数组的首地址，a[0] 就是偏移为 0 的位置，也就是首地址，a[k] 就表示偏移 k 个 type_size 的位置，所以计算 a[k] 的内存地址只需要用这个公式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[k]_address = base_address + k * type_size</span><br></pre></td></tr></table></figure>
+<p>但是，如果数组从 1 开始计数，那我们计算数组元素 a[k] 的内存地址就会变为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[k]_address = base_address + (k-1)*type_size</span><br></pre></td></tr></table></figure>
+<p>对比两个公式，我们不难发现，从 1 开始编号，每次随机访问数组元素都多了一次减法运算，对于 CPU 来说，就是多了一次减法指令。</p>
+<p>数组作为非常基础的数据结构，通过下标随机访问数组元素又是其非常基础的编程操作，效率的优化就要尽可能做到极致。所以为了减少一次减法操作，数组选择了从 0 开始编号，而不是从 1 开始。</p>
+
           
         
       
@@ -1397,7 +1507,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1408,7 +1518,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
