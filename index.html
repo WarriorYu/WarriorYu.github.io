@@ -252,6 +252,239 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/学习树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/学习树/" itemprop="url">学习树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T13:41:38+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="一、已学习："><a href="#一、已学习：" class="headerlink" title="一、已学习："></a>一、已学习：</h5><ol>
+<li><p><strong>HashMap:</strong>  </p>
+<ul>
+<li>美团技术团队：<a href="https://tech.meituan.com/2016/06/24/java-hashmap.html" target="_blank" rel="noopener">https://tech.meituan.com/2016/06/24/java-hashmap.html</a>   </li>
+<li>简书：Carson_Ho的博客：<a href="https://blog.csdn.net/carson_ho/article/details/79373134" target="_blank" rel="noopener">https://blog.csdn.net/carson_ho/article/details/79373134</a></li>
+</ul>
+</li>
+<li><p><strong>多线程：</strong> </p>
+<ul>
+<li>简书：Carson_Ho的博客：<a href="https://www.jianshu.com/nb/6977014" target="_blank" rel="noopener">https://www.jianshu.com/nb/6977014</a> </li>
+<li><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/note_img_thread.png" alt="note_img_thread" style="zoom:50%;">   </li>
+<li></li>
+</ul>
+</li>
+<li><p><a href="https://blog.csdn.net/hzy38324/article/details/77986095" target="_blank" rel="noopener"><strong>final关键字，为什么匿名内部类使用局部引用要用final？</strong></a>   </p>
+<p>现在我们知道了，是由于一个拷贝的动作，使得内外两个变量无法实时同步，其中一方修改，另外一方都无法同步修改，因此要加上final限制变量不能修改。</p>
+<p>那么为什么要拷贝呢，不拷贝不就没那么多事了吗？</p>
+<p>这时候就得考虑一下Java虚拟机的运行时数据区域了，dog变量是位于方法内部的，因此dog是在虚拟机栈上，也就意味着这个变量无法进行共享，匿名内部类    也就无法直接访问，因此只能通过值传递的方式，传递到匿名内部类中</p>
+<p>从JDK1.8开始，编译器不要求自由变量一定要声明为final，如果这个变量在后面的使用中没有发生变化，就可以通过编译，Java称这种情况为“effectively final”</p>
+</li>
+<li><p>RxJava:  </p>
+<ul>
+<li><a href="https://www.jianshu.com/p/ceb48ed8719d" target="_blank" rel="noopener">图文详解 背压策略</a>  </li>
+<li>compose操作符：<a href="https://blog.danlew.net/2015/03/02/dont-break-the-chain/" target="_blank" rel="noopener">Don’t break the chain: use RxJava’s compose() operator</a></li>
+<li></li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h5 id="二、待学习："><a href="#二、待学习：" class="headerlink" title="二、待学习："></a>二、待学习：</h5><ol>
+<li><p><strong>内存泄漏：</strong> </p>
+<ul>
+<li>内存分析：<a href="http://www.huahuaxie.com/android-performance-analysis/" target="_blank" rel="noopener">http://www.huahuaxie.com/android-performance-analysis/</a>   </li>
+<li></li>
+</ul>
+</li>
+<li><p><strong>Gradle：</strong> </p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&amp;mid=2650828850&amp;idx=1&amp;sn=b5be1ab7fb2fc85fcee1bf490be52446&amp;chksm=80b7a4acb7c02dbad6735def8eb36fefd306eb0b4ffd2e9ac0bd94b292476c0d258962024b27&amp;scene=27#wechat_redirect" target="_blank" rel="noopener">Gradle 篇 – 从使用到深入理解</a></li>
+</ul>
+</li>
+<li><p>Github 有关学习：</p>
+<ul>
+<li><p><a href="https://github.com/5A59/android-training" target="_blank" rel="noopener"> Android 修炼手册</a>  </p>
+</li>
+<li><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">Tech Interview Guide 技术面试必备基础知识、Leetcode 题解、Java、C++、Python、后端面试、操作系统、计算机网络、系统设计 </a></p>
+</li>
+<li><p><a href="https://github.com/JsonChao" target="_blank" rel="noopener">JsonChao</a>/<strong><a href="https://github.com/JsonChao/Awesome-Android-Interview" target="_blank" rel="noopener">Awesome-Android-Interview</a></strong></p>
+</li>
+<li><p><a href="http://www.jackywang.tech/AndroidInterview-Q-A/" target="_blank" rel="noopener">一线互联网公司内部题库</a>  </p>
+</li>
+<li><p><a href="https://github.com/nanchen2251/Blogs/blob/master/experience/%E8%AF%B4%E8%AF%B4%E8%BF%87%E5%8E%BB%E4%B8%80%E5%91%A8%E7%9A%84%E9%9D%A2%E8%AF%95%E5%92%8C%E6%83%B3%E6%B3%95.md" target="_blank" rel="noopener"><strong>nanchen:说说过去一周的面试和想法</strong></a></p>
+</li>
+<li></li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><p><a href="https://github.com/Carson-Ho/ShootAtOffer" target="_blank" rel="noopener">剑指Offer（第二版）所有面试题总结</a></p>
+</li>
+<li><p><a href="https://github.com/Snailclimb/JavaGuide" target="_blank" rel="noopener">JavaGuide</a>  </p>
+</li>
+<li><p><a href="https://xiaozhuanlan.com/javainterview?rel=javaguide" target="_blank" rel="noopener">《Java面试进阶指南》</a></p>
+</li>
+<li><p><strong>RxJava:</strong></p>
+<ul>
+<li><p><a href="https://github.com/amitshekhariitbhu/RxJava2-Android-Samples" target="_blank" rel="noopener">RxJava2-Android-Samples</a>   </p>
+</li>
+<li><p><a href="https://github.com/kaushikgopal/RxJava-Android-Samples" target="_blank" rel="noopener">kaushikgopal/RxJava-Android-Samples  </a></p>
+</li>
+<li><p><a href="https://github.com/lzyzsd/Awesome-RxJava" target="_blank" rel="noopener">lzyzsd/Awesome-RxJava</a>   </p>
+</li>
+<li><p><a href="https://juejin.im/user/5b0a6f4251882538bc7779c2/posts" target="_blank" rel="noopener">RxJava沉思录</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="8">
+<li></li>
+</ol>
+<h5 id="三、第三方库："><a href="#三、第三方库：" class="headerlink" title="三、第三方库："></a>三、第三方库：</h5><ol>
+<li><strong>大图加载方案：</strong>  <ul>
+<li>implementation <strong>‘me.panpf:sketch:2.7.1-rc01’</strong>（已使用）</li>
+<li>implementation <strong>‘com.koushikdutta.ion:ion:2.+’</strong></li>
+<li>implementation ‘com.shizhefei:LargeImageView:1.1.0’  </li>
+<li>implementation ‘com.github.SherlockGougou:BigImageViewPager:v4_4.1.0’ </li>
+<li>implementation ‘com.davemorrissey.labs:subsampling-scale-image-view:3.10.0’</li>
+<li>implementation ‘com.github.piasy:BigImageViewer:1.5.7’ </li>
+</ul>
+</li>
+<li></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/我要学Android-【算法篇-1-】/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1655,7 +1888,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1666,7 +1899,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1677,7 +1910,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
