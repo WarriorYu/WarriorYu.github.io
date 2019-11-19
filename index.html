@@ -485,6 +485,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/实现在Recycleview中一键返回指定Position/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/20/实现在Recycleview中一键返回指定Position/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T18:19:50+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>答：</p>
+<p>如果想平滑滚动到RecyclerView的某个Item,可以通过RecyclerView.smoothScrollToPosition(position);我们一般是当列表往上滑动一段距离后，显示一个「返回顶部」的按钮，点击返回到顶部，这个方法很完美。但是有一个特殊的场景：当点击按钮后，不是滑动到顶部，而是滑动到还没有显示出来的某个Item（比如要求滑动到position=10，当前在position=1）,这时候滑动出来的position=10的Item的底部贴在在屏幕的底部，而不是Item的顶部贴在屏幕的顶部。如果RecyclerView是垂直的，想解决这个问题，需要自定义一个LinearLayoutManager，通过RecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(context));替换掉原来的LinearLayoutManager。看代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinearLayoutManagerWithSmoothScroller</span> <span class="keyword">extends</span> <span class="title">LinearLayoutManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinearLayoutManagerWithSmoothScroller</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, RecyclerView.VERTICAL, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinearLayoutManagerWithSmoothScroller</span><span class="params">(Context context, <span class="keyword">int</span> orientation, <span class="keyword">boolean</span> 	reverseLayout)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, orientation, reverseLayout);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">smoothScrollToPosition</span><span class="params">(RecyclerView recyclerView, RecyclerView.State state, <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        RecyclerView.SmoothScroller smoothScroller = <span class="keyword">new</span> TopSnappedSmoothScroller(recyclerView.getContext());</span><br><span class="line">        smoothScroller.setTargetPosition(position);</span><br><span class="line">        startSmoothScroll(smoothScroller);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">TopSnappedSmoothScroller</span> <span class="keyword">extends</span> <span class="title">LinearSmoothScroller</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TopSnappedSmoothScroller</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(context);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> PointF <span class="title">computeScrollVectorForPosition</span><span class="params">(<span class="keyword">int</span> targetPosition)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> LinearLayoutManagerWithSmoothScroller.<span class="keyword">this</span></span><br><span class="line">                    .computeScrollVectorForPosition(targetPosition);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getVerticalSnapPreference</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> SNAP_TO_START;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来看题目的要求，如果想把Textview3置顶的话，可以计算Textview3距离屏幕顶部的距离，通过RecyclerView.smoothScrollBy(x, y)平滑滚到到指定的距离。这个距离的计算可以通过下面我贴出来的「代码一」获取Textview3在屏幕中的坐标，但是在小米手机上有时候获取的坐标偶尔有正确的值，偶尔是[0,0]，我也没有找到是什么原因导致的这个问题，如果你有好的想法，欢迎来告诉我。但是我们可以通过下面的「代码二」获取Textview3距离屏幕顶部的精确距离。</p>
+<p>「代码一」</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</span><br><span class="line">         <span class="keyword">int</span>[] location = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="comment">//获取在当前窗口内的绝对坐标</span></span><br><span class="line">         TextView3.getLocationInWindow(location); </span><br><span class="line">         <span class="keyword">int</span> y = location[<span class="number">1</span>];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>「代码二」</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TextView3.post(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span>  top = TextView3.getTop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>因为没有RecyclerView.smoothScrollTo(x,y)这个方法，只获取到坐标还实现不了功能，我们可以通过一个迂回的方法，通过下面的「代码三」监听RecyclerView的滑动距离，通过「代码三」中计算的总的滑动距离和「代码二」中获取的top可以计算出来一个差值，通过这个差值，就可以使用RecyclerView.smoothScrollBy(0, top - scrollHeight)平滑滚到到指定的距离了。</p>
+<p>「代码三」</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">recyView.addOnScrollListener(<span class="keyword">new</span> RecyclerView.OnScrollListener() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrolled</span><span class="params">(@NonNull RecyclerView recyclerView, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</span><br><span class="line">              <span class="keyword">super</span>.onScrolled(recyclerView, dx, dy);</span><br><span class="line">              <span class="keyword">int</span> scrollHeight += dy;             </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+<p>注意：如果通过「代码三」这种方式监听滑动距离，千万不能使用View.scrollTo()这种方法让View跳到某个位置，这会导致「代码三」中的监听滑动距离失败，可以理解为scrollTo()这种方法是一下跳过一段距离，所以无法获取到滑动的距离。</p>
+<p>如果你有更好的实现方式，或者对于在复杂列表中返回到指定的Position有什么分享的，欢迎来讨论。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/我要学Android-【算法篇-1-】/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1888,7 +2020,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
