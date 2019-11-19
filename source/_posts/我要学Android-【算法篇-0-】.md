@@ -1,5 +1,5 @@
 ---
-title: 我要学Android---【算法篇(0)】
+title: 我要学Android-【算法篇(0)】
 categories:
   - 算法
 tags:

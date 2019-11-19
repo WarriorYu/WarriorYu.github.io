@@ -9,7 +9,7 @@ tags:
 
 经常遇到这种布局，见下图，1、2、3、4、5、6的间隙都是等宽的，这种布局很简单，我们一般都使用LinearLayout，再利用weight属性，就可以实现。
 
-![](/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/weight平均布局.jpg)
+![](/images/weight平均布局.jpg)
 
 ##### 代码
 
