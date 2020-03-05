@@ -252,6 +252,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/普通类、抽象类实现接口的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/普通类、抽象类实现接口的区别/" itemprop="url">普通类、抽象类实现接口的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T15:10:19+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="普通类、抽象类实现接口的区别"><a href="#普通类、抽象类实现接口的区别" class="headerlink" title="普通类、抽象类实现接口的区别"></a>普通类、抽象类实现接口的区别</h1><p>1、普通类实现接口，需要实现接口里所有的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*接口*/</span><br><span class="line">public interface BaseView &#123;</span><br><span class="line">    void showLoadingDialog(String msg);</span><br><span class="line"></span><br><span class="line">    void dismissLoadingDialog();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*普通类*/</span><br><span class="line">public class MyView implements BaseView&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void showLoadingDialog(String msg) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void dismissLoadingDialog() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、抽象类实现接口，可以选择实现或者部分实现（包括完全不实现）接口里的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public abstract class MyView implements BaseView&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void showLoadingDialog(String msg) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">当我们需要实现接口里的部分方法时，可以先写一个抽象类来实现该接口，并且实现除了我们想要的方法之外的方法，也就是我们在抽象类里实现不需要的方法，当我们的类(RootView)去继承这个抽象类时，RootView中就只需要实现我们需要的方法了。	</span><br><span class="line">public class RootView extends MyView &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void dismissLoadingDialog() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><h5 id="抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。"><a href="#抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。" class="headerlink" title="抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。"></a>抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。</h5><h5 id="一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。"><a href="#一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。" class="headerlink" title="一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。"></a>一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/Android-ABI、CPU、so文件浅析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -979,7 +1124,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1001,7 +1146,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

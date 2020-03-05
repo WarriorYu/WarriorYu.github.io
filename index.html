@@ -252,6 +252,218 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/geenDao-源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/05/geenDao-源码分析/" itemprop="url">geenDao 源码分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-05T16:39:42+08:00">
+                2020-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">Android源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="greenDao-源码分析"><a href="#greenDao-源码分析" class="headerlink" title="greenDao 源码分析"></a>greenDao 源码分析</h1><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greenDAO-orm.png" alt="Introduction"></p>
+<h3 id="一-核心类"><a href="#一-核心类" class="headerlink" title="一. 核心类"></a>一. 核心类</h3><h4 id="1-DaoMaster"><a href="#1-DaoMaster" class="headerlink" title="1. DaoMaster"></a>1. DaoMaster</h4><ul>
+<li><p>DaoMaster是使用greenDao的入口。</p>
+</li>
+<li><p>DaoMaster持有数据库对象，并且管理特定表的Dao类（而非对象）。</p>
+</li>
+<li><p>它具有创建表或者删除表的静态方法。</p>
+</li>
+<li><p>其内部类 OpenHelper 和 DevOpenHelper 是 SQLiteOpenHelper 的实现，<br>可在 SQLite 数据库中创建表 。</p>
+</li>
+</ul>
+<h4 id="2-DaoSession"><a href="#2-DaoSession" class="headerlink" title="2. DaoSession"></a>2. DaoSession</h4><ul>
+<li><p>DaoSession 管理特定表的所有可用DAO对象，这些对象可以通过相应的get方法获取。</p>
+</li>
+<li><p>DaoSession 还为实体提供了一些通用的方法，例如插入、加载、更新、刷新和删除。</p>
+</li>
+<li><p>DaoSession 还可以管理缓存。</p>
+</li>
+</ul>
+<h4 id="3-XXXDao"><a href="#3-XXXDao" class="headerlink" title="3. XXXDao"></a>3. XXXDao</h4><ul>
+<li><p>XXXDao 是数据访问对象，可以持久化和查询实体。</p>
+</li>
+<li><p>对于每一个实体，greeDao 会自动生成一个 DAO。</p>
+</li>
+<li><p>它比 DaoSession 具有更多的持久化方法，例如count, loadAll, insertInTx。</p>
+</li>
+</ul>
+<h4 id="4-Entities"><a href="#4-Entities" class="headerlink" title="4. Entities"></a>4. Entities</h4><ul>
+<li><p>实体，即持久化的对象。通常，实体是使用标准 Java属性（例如 POJO 或 JavaBean ）表示数据库行的对象。  </p>
+</li>
+<li><p>注意：只支持 Java class，如果你使用 Kotlin ，实体类仍然要使用 Java class 。</p>
+</li>
+<li><p>Entity注解里可配置的属性  </p>
+<p>@Entity(</p>
+<pre><code>// If you have more than one schema, you can tell greenDAO
+// to which schema an entity belongs (pick any string as a name).
+schema = &quot;myschema&quot;,
+</code></pre></li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Flag to make an entity "active": Active entities have update,</span></span><br><span class="line">    <span class="comment">// delete, and refresh methods.</span></span><br><span class="line">    active = <span class="keyword">true</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Specifies the name of the table in the database.</span></span><br><span class="line">    <span class="comment">// By default, the name is based on the entities class name.</span></span><br><span class="line">    nameInDb = <span class="string">"AWESOME_USERS"</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Define indexes spanning multiple columns here.</span></span><br><span class="line">    indexes = &#123;</span><br><span class="line">            <span class="meta">@Index</span>(value = <span class="string">"name DESC"</span>, unique = <span class="keyword">true</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Flag if the DAO should create the database table (default is true).</span></span><br><span class="line">    <span class="comment">// Set this to false, if you have multiple entities mapping to one table,</span></span><br><span class="line">    <span class="comment">// or the table creation is done outside of greenDAO.</span></span><br><span class="line">    createInDb = <span class="keyword">false</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Whether an all properties constructor should be generated.</span></span><br><span class="line">    <span class="comment">// A no-args constructor is always required.</span></span><br><span class="line">    generateConstructors = <span class="keyword">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Whether getters and setters for properties should be generated if missing.</span></span><br><span class="line">    generateGettersSetters = <span class="keyword">true</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-图示以上几个类的关系"><a href="#5-图示以上几个类的关系" class="headerlink" title="5. 图示以上几个类的关系"></a>5. 图示以上几个类的关系</h4><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/Core-Classes-150.png" alt="Core Classes"></p>
+<h3 id="二-源码分析"><a href="#二-源码分析" class="headerlink" title="二. 源码分析"></a>二. 源码分析</h3><h4 id="1-结构图"><a href="#1-结构图" class="headerlink" title="1. 结构图"></a>1. 结构图</h4><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greeDao结构图.png" alt="greenDao整体结构图"> </p>
+<p>​                                                 图片来源于：<a href="https://blog.csdn.net/kieCool/article/details/73930813" target="_blank" rel="noopener">https://blog.csdn.net/kieCool/article/details/73930813</a></p>
+<h4 id="2-参考："><a href="#2-参考：" class="headerlink" title="2. 参考："></a>2. 参考：</h4><blockquote>
+<ol>
+<li><a href="https://greenrobot.org/greendao/" target="_blank" rel="noopener">官网</a> </li>
+<li><a href="https://www.jianshu.com/u/6e5ebce41b4f" target="_blank" rel="noopener">嘎啦果安卓兽</a>：<a href="https://www.jianshu.com/p/10b04b86c29a" target="_blank" rel="noopener">GreenDAO源码整体流程梳理</a></li>
+<li>上面的时序图可配合这个文章查看：<a href="https://juejin.im/post/5d3a9193e51d4510a37bacd8" target="_blank" rel="noopener">https://juejin.im/post/5d3a9193e51d4510a37bacd8</a></li>
+<li><a href="https://juejin.im/post/5e44b3c2e51d4526ec0d2b71" target="_blank" rel="noopener">jsonchao</a></li>
+</ol>
+</blockquote>
+<h3 id="三-需要注意的几个点"><a href="#三-需要注意的几个点" class="headerlink" title="三. 需要注意的几个点"></a>三. 需要注意的几个点</h3><h4 id="1-数据库更新："><a href="#1-数据库更新：" class="headerlink" title="1. 数据库更新："></a>1. 数据库更新：</h4><ul>
+<li><p>为简单起见，使用由生成的DaoMaster类提供的帮助器类DevOpenHelper创建数据库。 它是DaoMaster中OpenHelper类的实现，它为您完成了所有数据库的设置。 无需编写“ CREATE TABLE”语句。</p>
+<p>但是，DevOpenHelper在数据库更新时会删除所有表（在onUpgrade（）中）。 因此，建议您创建并使用DaoMaster.OpenHelper的子类。 </p>
+<p>然后，Activities and fragments 可以调用getDaoSession（）来访问所有实体DAO。 </p>
+</li>
+<li><p><a href="https://github.com/yuweiguocn/GreenDaoUpgradeHelper" target="_blank" rel="noopener">GreenDaoUpgradeHelper</a> 是一个greenDao的数据库升级帮助类。使用它可以很容易解决数据库升级问题，只需一行代码。原始代码来自<a href="http://stackoverflow.com/a/30334668/7161403" target="_blank" rel="noopener">stackoverflow</a>。 </p>
+</li>
+</ul>
+<h4 id="2-主键限制："><a href="#2-主键限制：" class="headerlink" title="2. 主键限制："></a>2. 主键限制：</h4><p>实体类必须有一个long/Long类型的主键。对于这种情况，可将你的关键属性定义为附加属性，但是要为其创建唯一索引。 </p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Index</span>(unique = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">private</span> String key;</span><br></pre></td></tr></table></figure>
+<h4 id="3-多对多"><a href="#3-多对多" class="headerlink" title="3. 多对多"></a>3. <a href="https://greenrobot.org/greendao/documentation/relations/" target="_blank" rel="noopener">多对多</a></h4><ul>
+<li><p>对于多对多的实体，因为第一次获取的时候会缓存，所以再次获取的不是新数据，如果更新了数据，需要手动更新获取的数据，防止使用缓存。</p>
+</li>
+<li><p>或者先清除缓存，再获取数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// clear any cached list of related orders</span></span><br><span class="line">customer.resetOrders();</span><br><span class="line">List&lt;Order&gt; orders = customer.getOrders();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-Convert-annotation-and-property-converter"><a href="#4-Convert-annotation-and-property-converter" class="headerlink" title="4. Convert annotation and property converter"></a>4. Convert annotation and property converter</h4><ul>
+<li>注意：如果在实体类中定义自定义Type或者converter，要使用static修饰他们。 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Android-Handler消息机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -585,7 +797,9 @@
       
         
           
-            <h4 id="技术人员典型的焦虑和烦恼"><a href="#技术人员典型的焦虑和烦恼" class="headerlink" title="技术人员典型的焦虑和烦恼"></a>技术人员典型的焦虑和烦恼</h4><ol>
+            <h4 id="技术人员典型的焦虑和烦恼"><a href="#技术人员典型的焦虑和烦恼" class="headerlink" title="技术人员典型的焦虑和烦恼"></a>技术人员典型的焦虑和烦恼</h4><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/google打分卡.jpeg" style="zoom:50%;"> </p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/主动学习.jpeg" style="zoom:50%;"> </p>
+<ol>
 <li>加班 <ul>
 <li>加班时间长，没有时间提升</li>
 </ul>
@@ -2344,151 +2558,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/普通类、抽象类实现接口的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WarriorYu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WarriorYu">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/10/普通类、抽象类实现接口的区别/" itemprop="url">普通类、抽象类实现接口的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T15:10:19+08:00">
-                2018-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="普通类、抽象类实现接口的区别"><a href="#普通类、抽象类实现接口的区别" class="headerlink" title="普通类、抽象类实现接口的区别"></a>普通类、抽象类实现接口的区别</h1><p>1、普通类实现接口，需要实现接口里所有的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*接口*/</span><br><span class="line">public interface BaseView &#123;</span><br><span class="line">    void showLoadingDialog(String msg);</span><br><span class="line"></span><br><span class="line">    void dismissLoadingDialog();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*普通类*/</span><br><span class="line">public class MyView implements BaseView&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void showLoadingDialog(String msg) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void dismissLoadingDialog() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2、抽象类实现接口，可以选择实现或者部分实现（包括完全不实现）接口里的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public abstract class MyView implements BaseView&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void showLoadingDialog(String msg) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">当我们需要实现接口里的部分方法时，可以先写一个抽象类来实现该接口，并且实现除了我们想要的方法之外的方法，也就是我们在抽象类里实现不需要的方法，当我们的类(RootView)去继承这个抽象类时，RootView中就只需要实现我们需要的方法了。	</span><br><span class="line">public class RootView extends MyView &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void dismissLoadingDialog() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><h5 id="抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。"><a href="#抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。" class="headerlink" title="抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。"></a>抽象类有个好处就是，它可以有方法的具体实现，也可以不写方法的具体实现，而接口里是没有具体实现的。</h5><h5 id="一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。"><a href="#一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。" class="headerlink" title="一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。"></a>一个类如果实现一个接口，那它必然要实现接口里的所有方法，而如果一个抽象类实现一个接口的话，抽象类里可以只写部分方法或者完全不重写任何方法。</h5>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2543,7 +2612,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2565,7 +2634,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
