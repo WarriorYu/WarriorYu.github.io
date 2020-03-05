@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="WarriorYu">
 <meta property="og:description" content="greenDao 源码分析 一. 核心类1. DaoMaster DaoMaster是使用greenDao的入口。  DaoMaster持有数据库对象，并且管理特定表的Dao类（而非对象）。  它具有创建表或者删除表的静态方法。  其内部类 OpenHelper 和 DevOpenHelper 是 SQLiteOpenHelper 的实现，可在 SQLite 数据库中创建表 。   2. DaoS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greenDAO-orm.png">
-<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/Core-Classes-150.png">
-<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greeDao结构图.png">
-<meta property="og:updated_time" content="2020-03-05T08:42:01.000Z">
+<meta property="og:image" content="http://yoursite.com/images/greenDAO-orm.png">
+<meta property="og:image" content="http://yoursite.com/images/Core-Classes-150.png">
+<meta property="og:image" content="http://yoursite.com/images/greeDao结构图.png">
+<meta property="og:updated_time" content="2020-03-05T08:46:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="geenDao 源码分析">
 <meta name="twitter:description" content="greenDao 源码分析 一. 核心类1. DaoMaster DaoMaster是使用greenDao的入口。  DaoMaster持有数据库对象，并且管理特定表的Dao类（而非对象）。  它具有创建表或者删除表的静态方法。  其内部类 OpenHelper 和 DevOpenHelper 是 SQLiteOpenHelper 的实现，可在 SQLite 数据库中创建表 。   2. DaoS">
-<meta name="twitter:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greenDAO-orm.png">
+<meta name="twitter:image" content="http://yoursite.com/images/greenDAO-orm.png">
 
 
 
@@ -346,7 +346,7 @@
       
 
       
-        <h1 id="greenDao-源码分析"><a href="#greenDao-源码分析" class="headerlink" title="greenDao 源码分析"></a>greenDao 源码分析</h1><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greenDAO-orm.png" alt="Introduction"></p>
+        <h1 id="greenDao-源码分析"><a href="#greenDao-源码分析" class="headerlink" title="greenDao 源码分析"></a>greenDao 源码分析</h1><p><img src="/images/greenDAO-orm.png" alt="Introduction"></p>
 <h3 id="一-核心类"><a href="#一-核心类" class="headerlink" title="一. 核心类"></a>一. 核心类</h3><h4 id="1-DaoMaster"><a href="#1-DaoMaster" class="headerlink" title="1. DaoMaster"></a>1. DaoMaster</h4><ul>
 <li><p>DaoMaster是使用greenDao的入口。</p>
 </li>
@@ -386,8 +386,8 @@ schema = &quot;myschema&quot;,
 </code></pre></li>
 </ul>
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Flag to make an entity "active": Active entities have update,</span></span><br><span class="line">    <span class="comment">// delete, and refresh methods.</span></span><br><span class="line">    active = <span class="keyword">true</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Specifies the name of the table in the database.</span></span><br><span class="line">    <span class="comment">// By default, the name is based on the entities class name.</span></span><br><span class="line">    nameInDb = <span class="string">"AWESOME_USERS"</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Define indexes spanning multiple columns here.</span></span><br><span class="line">    indexes = &#123;</span><br><span class="line">            <span class="meta">@Index</span>(value = <span class="string">"name DESC"</span>, unique = <span class="keyword">true</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Flag if the DAO should create the database table (default is true).</span></span><br><span class="line">    <span class="comment">// Set this to false, if you have multiple entities mapping to one table,</span></span><br><span class="line">    <span class="comment">// or the table creation is done outside of greenDAO.</span></span><br><span class="line">    createInDb = <span class="keyword">false</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Whether an all properties constructor should be generated.</span></span><br><span class="line">    <span class="comment">// A no-args constructor is always required.</span></span><br><span class="line">    generateConstructors = <span class="keyword">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Whether getters and setters for properties should be generated if missing.</span></span><br><span class="line">    generateGettersSetters = <span class="keyword">true</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="5-图示以上几个类的关系"><a href="#5-图示以上几个类的关系" class="headerlink" title="5. 图示以上几个类的关系"></a>5. 图示以上几个类的关系</h4><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/Core-Classes-150.png" alt="Core Classes"></p>
-<h3 id="二-源码分析"><a href="#二-源码分析" class="headerlink" title="二. 源码分析"></a>二. 源码分析</h3><h4 id="1-结构图"><a href="#1-结构图" class="headerlink" title="1. 结构图"></a>1. 结构图</h4><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/greeDao结构图.png" alt="greenDao整体结构图"> </p>
+<h4 id="5-图示以上几个类的关系"><a href="#5-图示以上几个类的关系" class="headerlink" title="5. 图示以上几个类的关系"></a>5. 图示以上几个类的关系</h4><p><img src="/images/Core-Classes-150.png" alt="Core Classes"></p>
+<h3 id="二-源码分析"><a href="#二-源码分析" class="headerlink" title="二. 源码分析"></a>二. 源码分析</h3><h4 id="1-结构图"><a href="#1-结构图" class="headerlink" title="1. 结构图"></a>1. 结构图</h4><p><img src="/images/greeDao结构图.png" alt="greenDao整体结构图"> </p>
 <p>​                                                 图片来源于：<a href="https://blog.csdn.net/kieCool/article/details/73930813" target="_blank" rel="noopener">https://blog.csdn.net/kieCool/article/details/73930813</a></p>
 <h4 id="2-参考："><a href="#2-参考：" class="headerlink" title="2. 参考："></a>2. 参考：</h4><blockquote>
 <ol>
