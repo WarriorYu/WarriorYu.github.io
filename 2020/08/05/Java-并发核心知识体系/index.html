@@ -79,14 +79,15 @@
 
 
 
-<meta name="description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：     第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    12345678910">
+<meta name="description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：      第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    1234567891">
 <meta name="keywords" content="并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 并发核心知识体系">
 <meta property="og:url" content="http://yoursite.com/2020/08/05/Java-并发核心知识体系/index.html">
 <meta property="og:site_name" content="WarriorYu">
-<meta property="og:description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：     第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    12345678910">
+<meta property="og:description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：      第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    1234567891">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/thread1.png%22%20alt=%22thread1%22%20style=%22zoom:33%;">
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread1.png">
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread2.png">
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread3.png">
@@ -114,11 +115,11 @@
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread25.png">
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread26.png">
 <meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread27.png">
-<meta property="og:updated_time" content="2020-08-05T03:26:24.000Z">
+<meta property="og:updated_time" content="2020-08-05T03:46:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 并发核心知识体系">
-<meta name="twitter:description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：     第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    12345678910">
-<meta name="twitter:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread1.png">
+<meta name="twitter:description" content="笔记 Java 并发核心知识体系精讲 一. 线程八大核心 第3章：实现线程的方式：      第4章：线程启动  直接调用run()是在主线程或者当前子线程执行。而start()方法，先检查线程的状态，通过native方法start0()再启动新线程。 第5章：如何正确停止线程 1. 原理介绍：使用interrupt来通知，而不是强制。 2.   3.  4.  5.    1234567891">
+<meta name="twitter:image" content="http://yoursite.com/images/thread1.png%22%20alt=%22thread1%22%20style=%22zoom:33%;">
 
 
 
@@ -374,6 +375,7 @@
 <p><strong>Java 并发核心知识体系精讲</strong></p>
 <p><strong>一. 线程八大核心</strong></p>
 <p><strong>第3章：实现线程的方式：</strong> </p>
+<p><img src="/images/thread1.png&quot; alt=&quot;thread1&quot; style=&quot;zoom:33%;" alt="Introduction"></p>
 <p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread1.png" alt="thread1" style="zoom:33%;"></p>
 <p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread2.png" alt="thread1" style="zoom:33%;"></p>
 <p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/thread3.png" alt="thread1" style="zoom:33%;"></p>
