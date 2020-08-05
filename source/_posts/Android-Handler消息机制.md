@@ -687,7 +687,7 @@ public final class Message implements Parcelable {
 
 
 
-![我的公众号二维码](/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/我的公众号二维码.png)
+![我的公众号二维码](/images/我的公众号二维码.png)
 
 
 
