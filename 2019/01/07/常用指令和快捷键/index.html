@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="WarriorYu">
 <meta property="og:description" content="一. App的内存使用情况概览超过单个程序限制最大内存则OOM，如果设置了开启largeHeap,则可提高到dvm最大内存才OOM。 12//dvm最大可用内存：adb shell getprop | grep dalvik.vm.heapsize 12//单个程序限制最大可用内存：adb shell getprop|grep heapgrowthlimit 输出我们App的内存使用情况概览： 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T10:33:43.000Z">
+<meta property="og:updated_time" content="2020-08-05T03:33:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用指令和快捷键">
 <meta name="twitter:description" content="一. App的内存使用情况概览超过单个程序限制最大内存则OOM，如果设置了开启largeHeap,则可提高到dvm最大内存才OOM。 12//dvm最大可用内存：adb shell getprop | grep dalvik.vm.heapsize 12//单个程序限制最大可用内存：adb shell getprop|grep heapgrowthlimit 输出我们App的内存使用情况概览： 1">
@@ -350,6 +350,36 @@
 <h5 id="二-局域网提供文件加载"><a href="#二-局域网提供文件加载" class="headerlink" title="二. 局域网提供文件加载"></a>二. 局域网提供文件加载</h5><p>在命令行定位到需要供下载的文件夹，键入命令 <code>python -m SimpleHTTPServer</code>  就可以，用户通过浏览器网址中输入本机的ip地址下载</p>
 <h5 id="三-MarkDown相关"><a href="#三-MarkDown相关" class="headerlink" title="三. MarkDown相关"></a>三. MarkDown相关</h5><p>​     <strong>换行</strong>：空格+空格+回车</p>
 <p>​     <strong>显示非列表的序号</strong>：可以使用：数字. 来取消显示为列表 例如：05. </p>
+<h5 id="MarkDown快捷键："><a href="#MarkDown快捷键：" class="headerlink" title="MarkDown快捷键："></a>MarkDown快捷键：</h5><p>1、源代码模式： command+/</p>
+<p>2、标题的使用格式</p>
+<p># 一阶标题 或者快捷键command++1</p>
+<p>##二阶标题 或者快捷键command++2</p>
+<p>###三阶标题 或者快捷键command++3</p>
+<p>####四阶标题 或者快捷键command++4</p>
+<p>#####五阶标题 或者快捷键command++5</p>
+<p>######六阶标题 或者快捷键command++6</p>
+<p>3、文本居中使用格式</p>
+<center>这是要居中的文本内容</center>
+
+<p>4、下划线使用格式</p>
+<p>快捷键command+U 或者 <u>下划线的内容</u></p>
+<p>5、删除线使用格式</p>
+<p><del>删除线的内容</del></p>
+<p>删除线在Typora显示形式是：这是删除线的内容</p>
+<p>6、字体加粗使用格式</p>
+<p>快捷键command+B 或者 <strong>加粗字体</strong></p>
+<p>字体加粗在Typora显示形式是：<strong>加粗字体 This is a bold font</strong></p>
+<p>7、字体倾斜使用格式</p>
+<p>快捷键command+I 或者 <em>字体倾斜了</em></p>
+<p>字体倾斜在Typora的显示形式:<em>字体倾斜了 This is a alanted font</em></p>
+<p>8、超链接使用格式</p>
+<p>第一种：<a href="http://www.simba.com/" target="_blank" rel="noopener">http://www.simba.com</a></p>
+<p>第二种：快捷键Ctrl+K</p>
+<p>按住command键+点击上面链接就可以直接访问该链接</p>
+<p>9、代码区域的使用格式</p>
+<p>快捷键：shift+command+` 或者<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">10</span>、表格的二种使用格式</span><br><span class="line"></span><br><span class="line">快捷键command+T，会自动跳出设置行和列的设置框</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>、任务列表使用格式</span><br><span class="line"></span><br><span class="line">\- [ ] 文字 （注：注意用空格隔开）</span><br><span class="line"></span><br><span class="line">-  java</span><br><span class="line">-  C</span><br><span class="line">-  Android</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>、列表</span><br></pre></td></tr></table></figure></p>
+<p>alt+command+O: 有序列表<br><code>`</code></p>
+<p>​    alt+command+U:无序列表</p>
 
       
     </div>
@@ -473,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -484,7 +514,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -495,7 +525,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -544,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一-App的内存使用情况概览"><span class="nav-number">1.</span> <span class="nav-text">一. App的内存使用情况概览</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二-局域网提供文件加载"><span class="nav-number">2.</span> <span class="nav-text">二. 局域网提供文件加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三-MarkDown相关"><span class="nav-number">3.</span> <span class="nav-text">三. MarkDown相关</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一-App的内存使用情况概览"><span class="nav-number">1.</span> <span class="nav-text">一. App的内存使用情况概览</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二-局域网提供文件加载"><span class="nav-number">2.</span> <span class="nav-text">二. 局域网提供文件加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三-MarkDown相关"><span class="nav-number">3.</span> <span class="nav-text">三. MarkDown相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MarkDown快捷键："><span class="nav-number">4.</span> <span class="nav-text">MarkDown快捷键：</span></a></li></ol></div>
             
 
           </div>

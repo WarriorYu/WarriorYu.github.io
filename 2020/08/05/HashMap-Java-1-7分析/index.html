@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="集合," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HashMap Java 1.7 解析 定义：基于哈希表的Map接口实现类。 继承了AbstractMap抽象类，实现了Map接口，实现了Cloneable接口，实现了Serializable接口。  不保证有序（如插入顺序）  初始容量是16，最大容量是2^30  允许 null 的键/值。key=null时，放在数组第0个位置，hash值为0。 对比HashTable，由于HashTable对">
+<meta name="keywords" content="集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap-Java 1.7分析">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/HashMap-Java-1-7分析/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="HashMap Java 1.7 解析 定义：基于哈希表的Map接口实现类。 继承了AbstractMap抽象类，实现了Map接口，实现了Cloneable接口，实现了Serializable接口。  不保证有序（如插入顺序）  初始容量是16，最大容量是2^30  允许 null 的键/值。key=null时，放在数组第0个位置，hash值为0。 对比HashTable，由于HashTable对">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-08-05T03:28:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HashMap-Java 1.7分析">
+<meta name="twitter:description" content="HashMap Java 1.7 解析 定义：基于哈希表的Map接口实现类。 继承了AbstractMap抽象类，实现了Map接口，实现了Cloneable接口，实现了Serializable接口。  不保证有序（如插入顺序）  初始容量是16，最大容量是2^30  允许 null 的键/值。key=null时，放在数组第0个位置，hash值为0。 对比HashTable，由于HashTable对">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/HashMap-Java-1-7分析/"/>
+
+
+
+
+
+  <title>HashMap-Java 1.7分析 | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/HashMap-Java-1-7分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HashMap-Java 1.7分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T11:27:35+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HashMap-Java-1-7-解析"><a href="#HashMap-Java-1-7-解析" class="headerlink" title="HashMap Java 1.7 解析"></a>HashMap Java 1.7 解析</h1><ol>
+<li><p>定义：基于哈希表的Map接口实现类。</p>
+<p>继承了AbstractMap抽象类，实现了Map接口，实现了Cloneable接口，实现了Serializable接口。</p>
+</li>
+<li><p>不保证有序（如插入顺序）</p>
+</li>
+<li><p>初始容量是16，最大容量是2^30</p>
+</li>
+<li><p>允许 null 的键/值。key=null时，放在数组第0个位置，hash值为0。</p>
+<p>对比HashTable，由于HashTable对key直接hashCode（），若key为null时，会抛出异常，所以HashTable的key不可为null。</p>
+</li>
+<li><p>非线程安全（非同步）。可通过 Collections.synchronizedMap(new HashMap())获得线程安全的HashMap.</p>
+</li>
+<li><p>在第一次put()时会初始化数组。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * 函数源码分析2：indexFor(hash, table.length)</span><br><span class="line">     * JDK 1.8中实际上无该函数，但原理相同，即具备类似作用的函数</span><br><span class="line">     */</span><br><span class="line">      static int indexFor(int h, int length) &#123;  </span><br><span class="line">          return h &amp; (length-1); </span><br><span class="line">          // 将对哈希码扰动处理后的结果 与运算(&amp;) （数组长度-1），最终得到存储在数组table的位置（即数组下标、索引）</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p><strong>问题1：</strong> 为什么不直接采用经过hashCode（）处理的哈希码 作为 存储数组table的下标位置？</p>
+<p>为了解决 “哈希码与数组大小范围不匹配” 的问题，<code>HashMap</code>给出了解决方案：<strong>哈希码 与运算（&amp;） （数组长度-1）</strong>；</p>
+</li>
+<li><p><strong>问题2：</strong> 为什么采用 哈希码 与运算(&amp;) （数组长度-1） 计算数组下标？</p>
+<p>首先，数组长度是2的次幂，二进制表示就是首位为1，其他位都为0，如果直接和hash码做&amp;运算的话，得到的数组索引结果都是偶数，相当于浪费了一般的数组空间。如果（数组长度-1）首位为1，低位为1，和hash码做&amp;运算的结果有哈希码决定，可能为1或0，这样保证了计算后的数组存储位置的均匀性，降低了hash冲突。</p>
+<p>其次，h &amp; (length-1)相当于h % length，即hash值对数组长度取模。之所以与(&amp;)运算，而非求余(%)，是为了提高运算效率。</p>
+</li>
+<li><p><strong>问题3</strong>：为什么在计算数组下标前，需对哈希码进行二次处理：扰动处理？</p>
+<p>增大哈希码低位的随机性，使得分布更均匀，从而提高对应数组存储下标位置的随机性 &amp; 均匀性，最终减少Hash冲突。</p>
+</li>
+<li><h3 id="为什么-HashMap-中-String、Integer-这样的包装类适合作为-key-键"><a href="#为什么-HashMap-中-String、Integer-这样的包装类适合作为-key-键" class="headerlink" title="为什么 HashMap 中 String、Integer 这样的包装类适合作为 key 键"></a>为什么 HashMap 中 String、Integer 这样的包装类适合作为 key 键</h3><ul>
+<li>final类型，保证了key的不可变性。</li>
+<li>内部已重写了hashCode() 、equals()方法。</li>
+</ul>
+</li>
+<li><p>HashMap 中的 key若 Object类型， 则需实现哪些方法？</p>
+<p>实现 hashCode() 、equals()。</p>
+<ul>
+<li>hashCode()：计算需存储数据的存储位置。实现不恰当会导致严重的hash冲突。</li>
+<li>equals()：比较存储位置上是否存在存储数据的键 Key，保证键 Key 在哈希表中的唯一性。存在，则更新value值即可。不存在，则直接插入数据。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>插入前，先判断容量是否足够，若不足够，则进行扩容（2倍）、重新计算Hash值、重新计算存储数组下标。</li>
+<li>若旧容量已经是系统默认最大容量了，那么将阈值设置成整型的最大值。</li>
+<li>扩容时，根据新容量（2倍容量）新建1个数组，即新table 。将旧数组上的数据（键值对）转移到新table中，从而完成扩容 。然后 重新设置阈值 threshold = (int)(newCapacity * loadFactor);</li>
+<li>键值对的添加方式：单链表的头插法<ul>
+<li>即 将该位置（数组上）原来的数据放在该位置的（链表）下1个节点中（next）、在该位置（数组上）放入需插入的数据-&gt; 从而形成链表。</li>
+<li>在扩容<code>resize（）</code>过程中，在将旧数组上的数据 转移到 新数组上时，转移操作 = 按旧链表的正序遍历链表、在新链表的头部依次插入，即在转移数据、扩容后，容易出现<strong>链表逆序</strong>的情况。</li>
+<li>此时若（多线程）并发执行 put（）操作，一旦出现扩容情况，则 <strong>容易出现 环形链表</strong>，从而在获取数据、遍历链表时 形成死循环（Infinite Loop），即 死锁的状态 = <strong>线程不安全</strong> 。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">注意：由于 `JDK 1.8` 转移数据操作 = **按旧链表的正序遍历链表、在新链表的尾部依次插入** ，所以不会出现链表 **逆序、倒置** 的情况，故不容易出现环形链表的情况。</span><br><span class="line"></span><br><span class="line">但 `JDK 1.8` 还是线程不安全，因为 无加同步锁保护</span><br></pre></td></tr></table></figure>
+<ol>
+<li>核心参数：<ul>
+<li>数组（Table）的大小 =容量的大小（capacity）。默认容量是16。容量范围必须是2的次幂 &amp; &lt; 最大容量（2^30)。</li>
+<li>加载因子（loadFactor） = 0.75。</li>
+<li>扩容阈值（threshold） = 容量（capacity） * 加载因子（loadFactor）</li>
+<li>HashMap 大小 = 数组长度 + 所有链表的长度。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>参考：<a href="https://www.jianshu.com/p/e5c8a814c0ca" target="_blank" rel="noopener">Java：这是一份全面 &amp; 详细的HashMap 1.7源码分析指南</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/Java-并发核心知识体系/" rel="next" title="Java 并发核心知识体系">
+                <i class="fa fa-chevron-left"></i> Java 并发核心知识体系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/集合概述/" rel="prev" title="集合概述">
+                集合概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap-Java-1-7-解析"><span class="nav-number">1.</span> <span class="nav-text">HashMap Java 1.7 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么-HashMap-中-String、Integer-这样的包装类适合作为-key-键"><span class="nav-number">1.0.1.</span> <span class="nav-text">为什么 HashMap 中 String、Integer 这样的包装类适合作为 key 键</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

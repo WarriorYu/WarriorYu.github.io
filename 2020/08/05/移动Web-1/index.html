@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="H5," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 概念 2. 适配要求 3. 适配设置 4 . viewport的功能 5. 非主流的适配方案： 6. 不建议在移动端使用jquery 7. box-sizing 8. 点击高亮 9. 防止出现图片下间隙 10.移动端滑动事件： 11.click在移动端有300ms的延时： 12.区域滚动效果： 13.媒体查询 14.reset.css 和normalize.css区别 15.响应式">
+<meta name="keywords" content="H5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动Web(1)">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/移动Web-1/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="1. 概念 2. 适配要求 3. 适配设置 4 . viewport的功能 5. 非主流的适配方案： 6. 不建议在移动端使用jquery 7. box-sizing 8. 点击高亮 9. 防止出现图片下间隙 10.移动端滑动事件： 11.click在移动端有300ms的延时： 12.区域滚动效果： 13.媒体查询 14.reset.css 和normalize.css区别 15.响应式">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-08-05T03:35:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动Web(1)">
+<meta name="twitter:description" content="1. 概念 2. 适配要求 3. 适配设置 4 . viewport的功能 5. 非主流的适配方案： 6. 不建议在移动端使用jquery 7. box-sizing 8. 点击高亮 9. 防止出现图片下间隙 10.移动端滑动事件： 11.click在移动端有300ms的延时： 12.区域滚动效果： 13.媒体查询 14.reset.css 和normalize.css区别 15.响应式">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/移动Web-1/"/>
+
+
+
+
+
+  <title>移动Web(1) | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/移动Web-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">移动Web(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T11:30:59+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大前端/" itemprop="url" rel="index">
+                    <span itemprop="name">大前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><a href="#1-概念">1. 概念</a></li>
+<li><a href="#2-适配要求">2. 适配要求</a></li>
+<li><a href="#3-适配设置">3. 适配设置</a></li>
+<li><a href="#4-viewport的功能">4 . viewport的功能</a></li>
+<li><a href="#5-非主流的适配方案">5. 非主流的适配方案：</a></li>
+<li><a href="#6-不建议在移动端使用jquery">6. 不建议在移动端使用jquery</a></li>
+<li><a href="#7-box-sizing">7. box-sizing</a></li>
+<li><a href="#8-点击高亮">8. 点击高亮</a></li>
+<li><a href="#9-防止出现图片下间隙">9. 防止出现图片下间隙</a></li>
+<li><a href="#10移动端滑动事件">10.移动端滑动事件：</a></li>
+<li><a href="#11click在移动端有300ms的延时">11.click在移动端有300ms的延时：</a></li>
+<li><a href="#12区域滚动效果">12.区域滚动效果：</a></li>
+<li><a href="#13媒体查询">13.媒体查询</a></li>
+<li><a href="#14resetcss-和normalizecss区别">14.reset.css 和normalize.css区别</a></li>
+<li><a href="#15响应式布局">15.响应式布局</a></li>
+<li><a href="#16自定义字体图标">16.自定义字体图标</a></li>
+<li><a href="#17boostrap实现导航条">17.boostrap实现导航条</a></li>
+<li><a href="#18模板引擎">18.模板引擎</a></li>
+<li><a href="#补充">补充：</a></li>
+<li><a href="#注意事项">注意事项：</a></li>
+<li><a href="#markdown快捷键">MarkDown快捷键：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h5><ul>
+<li>流式布局：就是百分比布局，非固定像素，内容向两侧填充，理解成流动的布局，称为流式布局</li>
+<li>视觉窗口：viewport,是移动端特有。这是一个虚拟的区域，承载网页的。</li>
+<li>承载关系：浏览器—-&gt;viewport—-&gt;网页</li>
+</ul>
+<h5 id="2-适配要求"><a href="#2-适配要求" class="headerlink" title="2. 适配要求"></a>2. 适配要求</h5><ul>
+<li>网页宽度必须和浏览器保持一致</li>
+<li>默认显示的缩放比例和PC端保持（缩放比例1.0）</li>
+<li>不允许用户自行缩放网页</li>
+<li>满足这些要求达到了适配，国际上通用的适配方案，标准的移动端适配方案。</li>
+</ul>
+<h5 id="3-适配设置"><a href="#3-适配设置" class="headerlink" title="3. 适配设置"></a>3. 适配设置</h5><ul>
+<li>如果任何设置都没有，默认走的就是viewport的默认设置</li>
+<li>去设置新的viewport设置,达到适配要求，<meta name="viewport"> 设置视口的标签 在head里面并且应该紧接着编码设置</li>
+</ul>
+<h5 id="4-viewport的功能"><a href="#4-viewport的功能" class="headerlink" title="4 . viewport的功能"></a>4 . viewport的功能</h5><ul>
+<li>width 可以设置宽度 (device-width 当前设备的宽度)</li>
+<li>height 可以设置高度</li>
+<li>initial-scale 可以设置默认的缩放比例</li>
+<li>user-scalable 可以设置是否允许用户自行缩放</li>
+<li>maximum-scale 可以设置最大缩放比例</li>
+<li>minimum-scale 可以设置最小缩放比例<ul>
+<li>在<meta name="viewport" content=""> content=”” 使用以上参数<ol>
+<li>width=device-width 宽度一致比例是1.0</li>
+<li>initial-scale=1.0 宽度一致比例是1.0</li>
+<li>user-scalable=no 不允许用户自行缩放 （yes，no 1,0）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>标准适配方案</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,user-scalable=0&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>快捷方式：meta:vp + tab</p>
+<h5 id="5-非主流的适配方案："><a href="#5-非主流的适配方案：" class="headerlink" title="5. 非主流的适配方案："></a>5. 非主流的适配方案：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.页面的真实尺寸会比在设备的上尺寸要大几倍</span><br><span class="line">2.假设设备是iphone4 -&gt; 320px -&gt; 网页尺寸 640px</span><br><span class="line">3.缩放操作，有2倍的  有3倍  和屏幕像素比有关系</span><br><span class="line">4.什么是屏幕像素（物理像素，像素点） px(页面的尺寸单位)</span><br><span class="line">5.物理像素 是设备显示屏的最小可视颗粒的大小   以前的手机（直板手机）</span><br><span class="line">6.现在有 高清显示屏  视网膜屏  retina屏</span><br><span class="line">7.显示的效果就提高了更细腻，但是在显示同等质量的图片的时候（模糊效果）</span><br><span class="line"></span><br><span class="line">8.在屏幕像素比（一个px宽的屏幕能放几个物理像素）高的设备  图片（非矢量）显示会模糊</span><br><span class="line">9.提高网页的清晰度  根据屏幕的像素比 来缩放网页</span><br><span class="line">10.但是这样的适配方案成本非常高</span><br><span class="line">11.一般的企业开发当中使用的还是标准化设置</span><br><span class="line"></span><br><span class="line">在高清显示屏当中：图片可能会失真（模糊）</span><br></pre></td></tr></table></figure>
+<h5 id="6-不建议在移动端使用jquery"><a href="#6-不建议在移动端使用jquery" class="headerlink" title="6. 不建议在移动端使用jquery"></a>6. 不建议在移动端使用jquery</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.可以使用jquery,但是不建议</span><br><span class="line">2.jquery  做了很多桌面浏览器的兼容问题 特别是IE，但是移动端没有IE浏览器</span><br><span class="line">3.主流的浏览器：谷歌 火狐（2016年停止了维护和更新） safari浏览器  百度  360 qq ...</span><br><span class="line">4.特点：内核基本上都是  webkit  或者 blink  兼容  -webkit-</span><br><span class="line">5.使用H5的api 或者说使用一个 叫做： zepto.js 的库（基于高版本浏览器开发）</span><br></pre></td></tr></table></figure>
+<h5 id="7-box-sizing"><a href="#7-box-sizing" class="headerlink" title="7. box-sizing"></a>7. box-sizing</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*防止内容溢出  不出现滚动条  提供用户体验*/</span><br><span class="line">box-sizing: border-box;</span><br><span class="line"></span><br><span class="line">1. 移动端以流式布局为主</span><br><span class="line">2. 百分比布局</span><br><span class="line">3. 非固定像素布局</span><br><span class="line">4. 无法准确计算容器的尺寸</span><br></pre></td></tr></table></figure>
+<h5 id="8-点击高亮"><a href="#8-点击高亮" class="headerlink" title="8. 点击高亮"></a>8. 点击高亮</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/*轻击 轻触*/</span><br><span class="line">-webkit-tap-highlight-color: red;</span><br></pre></td></tr></table></figure>
+<h5 id="9-防止出现图片下间隙"><a href="#9-防止出现图片下间隙" class="headerlink" title="9. 防止出现图片下间隙"></a>9. 防止出现图片下间隙</h5><p> 本质是有文字导致的，比如：agfy, g比a在格式上下沉，这样的文字和图片在一起，就会出现图片下间隙。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">        /*font-size: 0px;*/</span><br><span class="line">    &#125;</span><br><span class="line">    或</span><br><span class="line">    img&#123;</span><br><span class="line">        display: block;</span><br><span class="line">    &#125;</span><br><span class="line">    或</span><br><span class="line">    img&#123;</span><br><span class="line">        vertical-align: middle;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="10-移动端滑动事件："><a href="#10-移动端滑动事件：" class="headerlink" title="10.移动端滑动事件："></a>10.移动端滑动事件：</h5><p>​    touchstart touchmove touchend</p>
+<h5 id="11-click在移动端有300ms的延时："><a href="#11-click在移动端有300ms的延时：" class="headerlink" title="11.click在移动端有300ms的延时："></a>11.click在移动端有300ms的延时：</h5><p>​    避免300ms的方案：</p>
+<p> 1.tap事件</p>
+<p>​    2.fastclick插件使用</p>
+<h5 id="12-区域滚动效果："><a href="#12-区域滚动效果：" class="headerlink" title="12.区域滚动效果："></a>12.区域滚动效果：</h5><p>​    插件 isScroll</p>
+<h5 id="13-媒体查询"><a href="#13-媒体查询" class="headerlink" title="13.媒体查询"></a>13.媒体查询</h5><p>​    1、使用媒体查询能针对不同屏幕区间设置不同的布局和样式</p>
+<p>​    2、怎么使用媒体查询：关于媒体查询 @media</p>
+<p>​    3、语法： @media screen and (max-width: 768px) and (min-width: 320px){属性样式}</p>
+<p>​    eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (max-width: 768px) &#123;</span><br><span class="line">    /*1. 在超小屏设备的时候 768px以下      当前容器的宽度100%     背景蓝色*/</span><br><span class="line">    .container&#123;</span><br><span class="line">        width: 100%;</span><br><span class="line">        background: blue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width: 768px) and (max-width: 992px)&#123;</span><br><span class="line">    /*2. 在小屏设备的时候   768px-992px    当前容器的宽度750px    背景绿色*/</span><br><span class="line">    .container&#123;</span><br><span class="line">        width: 750px;</span><br><span class="line">        background: green;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width: 992px) and (max-width: 1200px)&#123;</span><br><span class="line">    /*3. 在中屏设备的时候   992px-1200px   当前容器的宽度970px    背景红色*/</span><br><span class="line">    .container&#123;</span><br><span class="line">        width: 970px;</span><br><span class="line">        background: red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width: 1200px)&#123;</span><br><span class="line">    /*4. 在大屏设备的时候   1200px以上      当前容器的宽度1170px   背景黄色*/</span><br><span class="line">    .container&#123;</span><br><span class="line">        width: 1170px;</span><br><span class="line">        background: yellow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="14-reset-css-和normalize-css区别"><a href="#14-reset-css-和normalize-css区别" class="headerlink" title="14.reset.css 和normalize.css区别"></a>14.reset.css 和normalize.css区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">共同点：都是重置样式库，增强浏览器的表现一致性</span><br><span class="line">不同点：都是增强浏览器的表现一致性，但是normalize不会重置已经一致的元素</span><br></pre></td></tr></table></figure>
+<h5 id="15-响应式布局"><a href="#15-响应式布局" class="headerlink" title="15.响应式布局"></a>15.响应式布局</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--响应式布局容器--&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;!--栅格系统：其实就是行和列的布局，网格状布局--&gt;</span><br><span class="line">    &lt;!--行：row--&gt;</span><br><span class="line">    &lt;!-- .container容器默认有15px的左右内间距  .row 填充父容器的15px的左右内间距   margin-left,margin-right -15px拉伸 --&gt;</span><br><span class="line">    &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">        &lt;!--列：col-*-*  *不确定（参数） --&gt;</span><br><span class="line">        &lt;!--</span><br><span class="line">            col：列样式</span><br><span class="line">            第一个*：屏幕的大小</span><br><span class="line">            大屏设备     lg   大屏设备以上生效包含本身</span><br><span class="line">            中屏设备     md   中屏设备以上生效包含本身</span><br><span class="line">            小屏设备     sm   小屏设备以上生效包含本身</span><br><span class="line">            超小屏设备   xs   超小屏设备以上生效包含本身</span><br><span class="line">            &lt;!--</span><br><span class="line">                响应式容器：</span><br><span class="line">                1. 在超小屏设备的时候 768px以下      当前容器的宽度100%     </span><br><span class="line">                2. 在小屏设备的时候   768px-992px    当前容器的宽度750px   </span><br><span class="line">                3. 在中屏设备的时候   992px-1200px   当前容器的宽度970px    </span><br><span class="line">                4. 在大屏设备的时候   1200px以上      当前容器的宽度1170px </span><br><span class="line">                --&gt;</span><br><span class="line">                </span><br><span class="line">            第二个*：每一行的分等份，默认分成12等份 ，数字代表的是占多少份</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;div class=&quot;col-xs-4&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;col-xs-4&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;col-xs-4&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;	</span><br><span class="line"></span><br><span class="line">&lt;!--</span><br><span class="line">大屏设备    显示</span><br><span class="line">中屏设备    隐藏</span><br><span class="line">小屏设备    显示</span><br><span class="line">超小屏设备  隐藏</span><br><span class="line">visible-lg     大屏显示其他隐藏</span><br><span class="line">visible-md</span><br><span class="line">visible-sm</span><br><span class="line">visible-xs</span><br><span class="line">3.2版本以后  建议使用hidden</span><br><span class="line">hidden-lg</span><br><span class="line">hidden-md</span><br><span class="line">hidden-sm</span><br><span class="line">hidden-xs</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="16-自定义字体图标"><a href="#16-自定义字体图标" class="headerlink" title="16.自定义字体图标"></a>16.自定义字体图标</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*自定义字体图标*/</span><br><span class="line">/*1.通过@font-face定义自己的字体*/</span><br><span class="line">@font-face &#123;</span><br><span class="line">    /*2.申明自己的字体名称*/</span><br><span class="line">    font-family: &apos;wjs&apos;;</span><br><span class="line">    /*3.引入字体文件（约束某一段字符代码什么图案）*/</span><br><span class="line">    src: url(../fonts/MiFie-Web-Font.svg) format(&apos;svg&apos;),</span><br><span class="line">    url(../fonts/MiFie-Web-Font.eot) format(&apos;embedded-opentype&apos;),</span><br><span class="line">    url(../fonts/MiFie-Web-Font.ttf) format(&apos;truetype&apos;),</span><br><span class="line">    url(../fonts/MiFie-Web-Font.woff) format(&apos;woff&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="17-boostrap实现导航条"><a href="#17-boostrap实现导航条" class="headerlink" title="17.boostrap实现导航条"></a>17.boostrap实现导航条</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--切换按钮--&gt;</span><br><span class="line">           &lt;!--</span><br><span class="line">           类名：collapsed  样式</span><br><span class="line">           属性：</span><br><span class="line">           data-toggle=&quot;collapse&quot;  申明是什么组件=折叠组件</span><br><span class="line">           data-target=&quot;#bs-example-navbar-collapse-1&quot; 控制的目标元素=选择器</span><br><span class="line">           其他：</span><br><span class="line">           aria-expanded=&quot;false&quot;  aria-* 代表提供给屏幕阅读器使用的（盲人阅读器）</span><br><span class="line">           class=&quot;sr-only&quot; screen read only  代表提供给屏幕阅读器使用的（盲人阅读器）</span><br><span class="line">           --&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="18-模板引擎"><a href="#18-模板引擎" class="headerlink" title="18.模板引擎"></a>18.模板引擎</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--使用模版引擎--&gt;</span><br><span class="line">&lt;script type=&quot;text/template&quot; id=&quot;pointTemplate&quot;&gt;</span><br><span class="line">    &lt;% for(var i = 0 ; i &lt; list.length ; i ++)&#123; %&gt;</span><br><span class="line">        &lt;li data-target=&quot;#carousel-example-generic&quot; data-slide-to=&quot;&lt;%=i%&gt;&quot; class=&quot;					&lt;%=i==0?&apos;active&apos;:&apos;&apos;%&gt;&quot;&gt;&lt;/li&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/template&quot; id=&quot;imageTemplate&quot;&gt;</span><br><span class="line">    &lt;% for(var i = 0 ; i &lt; list.length ; i ++)&#123; %&gt;</span><br><span class="line">    &lt;div class=&quot;item &lt;%=i==0?&apos;active&apos;:&apos;&apos;%&gt;&quot;&gt;</span><br><span class="line">        &lt;% if(isMobile)&#123; %&gt;</span><br><span class="line">        	&lt;a href=&quot;#&quot; class=&quot;m_imgBox&quot;&gt;&lt;img src=&quot;&lt;%=list[i].mUrl%&gt;&quot; alt=&quot;&quot;&gt;&lt;/a&gt;</span><br><span class="line">        &lt;% &#125;else&#123; %&gt;</span><br><span class="line">        	&lt;a href=&quot;#&quot; class=&quot;pc_imgBox&quot; style=&quot;background-image: </span><br><span class="line">        	    url(&lt;%=list[i].pcUrl%&gt;)&quot;&gt;&lt;/a&gt;</span><br><span class="line">        &lt;% &#125; %&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><ol>
+<li><p>a.offsetWidth; 获取控件的宽度</p>
+</li>
+<li><p>document.querySelector(‘.class_name); 获取标签</p>
+</li>
+<li><p>box.querySelectorAll(‘li’); 获取li标签数组</p>
+</li>
+<li><p>imageBox.style.transition = ‘all 0.2s’;</p>
+<p>imageBox.style.webkitTransition = ‘all 0.2s’; css3属性要做兼容</p>
+</li>
+<li><p>浮动的元素因为脱离标准文档流没有高度，当设置touch事件的时候会无法响应事件，所以要清除浮动。</p>
+</li>
+<li><p>dom.addEventListener(‘touchmove’,function(e){</p>
+<p>​    var moveX = e.touches[0].clientX;</p>
+<p>})</p>
+</li>
+<li><p>实现两栏，左侧一栏设定：width：100px，float:left ; 右侧一栏设置overflow:hidden。可实现右侧占满屏幕，从而实现两栏。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1、css代码</span><br><span class="line">/*  +,~选择器   + 紧邻的下一个兄弟元素  ~ 后面所有的兄弟元素*/</span><br><span class="line">.wjs_topBar &gt; .container &gt; .row &gt; div &#123;</span><br><span class="line">    height: 40px;</span><br><span class="line">    line-height: 40px;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.wjs_topBar &gt; .container &gt; .row &gt; div ~ div &#123;</span><br><span class="line">    border-left: 1px solid #ccc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2、html代码</span><br><span class="line">&lt;header class=&quot;wjs_topBar hidden-sm hidden-xs&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-md-2&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-md-5&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-md-2&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-md-3&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/header&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h5><ol>
+<li>js方法调用一定不能忘记加小括号“()”，因为不会报错，eg: e.prevertDefault();</li>
+<li>tranform:translateX(1px);  能提高层级</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/H5/" rel="tag"># H5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/集合概述/" rel="next" title="集合概述">
+                <i class="fa fa-chevron-left"></i> 集合概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/音视频开发分享-星陨/" rel="prev" title="音视频开发分享(星陨)">
+                音视频开发分享(星陨) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-概念"><span class="nav-number">1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-适配要求"><span class="nav-number">2.</span> <span class="nav-text">2. 适配要求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-适配设置"><span class="nav-number">3.</span> <span class="nav-text">3. 适配设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-viewport的功能"><span class="nav-number">4.</span> <span class="nav-text">4 . viewport的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-非主流的适配方案："><span class="nav-number">5.</span> <span class="nav-text">5. 非主流的适配方案：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-不建议在移动端使用jquery"><span class="nav-number">6.</span> <span class="nav-text">6. 不建议在移动端使用jquery</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-box-sizing"><span class="nav-number">7.</span> <span class="nav-text">7. box-sizing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-点击高亮"><span class="nav-number">8.</span> <span class="nav-text">8. 点击高亮</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-防止出现图片下间隙"><span class="nav-number">9.</span> <span class="nav-text">9. 防止出现图片下间隙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-移动端滑动事件："><span class="nav-number">10.</span> <span class="nav-text">10.移动端滑动事件：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-click在移动端有300ms的延时："><span class="nav-number">11.</span> <span class="nav-text">11.click在移动端有300ms的延时：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-区域滚动效果："><span class="nav-number">12.</span> <span class="nav-text">12.区域滚动效果：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-媒体查询"><span class="nav-number">13.</span> <span class="nav-text">13.媒体查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-reset-css-和normalize-css区别"><span class="nav-number">14.</span> <span class="nav-text">14.reset.css 和normalize.css区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-响应式布局"><span class="nav-number">15.</span> <span class="nav-text">15.响应式布局</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-自定义字体图标"><span class="nav-number">16.</span> <span class="nav-text">16.自定义字体图标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#17-boostrap实现导航条"><span class="nav-number">17.</span> <span class="nav-text">17.boostrap实现导航条</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-模板引擎"><span class="nav-number">18.</span> <span class="nav-text">18.模板引擎</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#补充："><span class="nav-number">19.</span> <span class="nav-text">补充：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意事项："><span class="nav-number">20.</span> <span class="nav-text">注意事项：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

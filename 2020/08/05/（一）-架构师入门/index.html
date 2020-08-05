@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="架构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 架构师入门一. AOP面向切面架构设计-两种方式 定义： 在软件业，AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻">
+<meta name="keywords" content="架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（一） 架构师入门">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/（一）-架构师入门/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="1. 架构师入门一. AOP面向切面架构设计-两种方式 定义： 在软件业，AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-08-05T02:54:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（一） 架构师入门">
+<meta name="twitter:description" content="1. 架构师入门一. AOP面向切面架构设计-两种方式 定义： 在软件业，AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/（一）-架构师入门/"/>
+
+
+
+
+
+  <title>（一） 架构师入门 | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/（一）-架构师入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">（一） 架构师入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T10:53:41+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-架构师入门"><a href="#1-架构师入门" class="headerlink" title="1. 架构师入门"></a>1. 架构师入门</h1><h3 id="一-AOP面向切面架构设计-两种方式"><a href="#一-AOP面向切面架构设计-两种方式" class="headerlink" title="一. AOP面向切面架构设计-两种方式"></a>一. AOP面向切面架构设计-两种方式</h3><ol>
+<li><p>定义：</p>
+<p>在软件业，AOP为Aspect Oriented Programming的缩写，意为：<a href="https://baike.baidu.com/item/面向切面编程/6016335" target="_blank" rel="noopener">面向切面编程</a>，通过<a href="https://baike.baidu.com/item/预编译/3191547" target="_blank" rel="noopener">预编译</a>方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是<a href="https://baike.baidu.com/item/OOP" target="_blank" rel="noopener">OOP</a>的延续，是软件开发中的一个热点，也是<a href="https://baike.baidu.com/item/Spring" target="_blank" rel="noopener">Spring</a>框架中的一个重要内容，是<a href="https://baike.baidu.com/item/函数式编程/4035031" target="_blank" rel="noopener">函数式编程</a>的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的<a href="https://baike.baidu.com/item/耦合度/2603938" target="_blank" rel="noopener">耦合度</a>降低，提高程序的可重用性，同时提高了开发的效率。</p>
+</li>
+<li><p>aspectj：</p>
+<ul>
+<li>编译时用Aspect专门的编译器，不再使用传统的javac </li>
+</ul>
+</li>
+<li><p>aspectj相关：</p>
+<ul>
+<li><p>下载aspectj  地址   <a href="http://www.eclipse.org/aspectj/downloads.php" target="_blank" rel="noopener">http://www.eclipse.org/aspectj/downloads.php</a></p>
+</li>
+<li><p>下载aspectj的adt地址<a href="http://www.eclipse.org/ajdt/downloads/#43zips" target="_blank" rel="noopener">http://www.eclipse.org/ajdt/downloads/#43zips</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>build.gradle  aspectJ  写法  <a href="http://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/" target="_blank" rel="noopener">http://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/</a></li>
+</ul>
+<h3 id="二-设计模式"><a href="#二-设计模式" class="headerlink" title="二. 设计模式"></a>二. 设计模式</h3><ol>
+<li>MVC:  如果Activity里有线程执行耗时操作没有执行完，但是退出Activity,这时Activity不会被回收，导致内存泄漏。</li>
+<li>MVP：Activity使用弱引用，当有耗时操作时，退出Activity时不会发生内存泄漏。<ul>
+<li>第一种P层的实现：Google在Github开源的架构实例，M对应JavaBean，V对应Activity/Fragment, P处理业务逻辑等，所有的活都有P层干完，然后通知V更新UI。</li>
+<li>第二种P层的实现：P层只做转发，M对应Model层，P转发给M层处理业务逻辑等，然后M再返回给P层，P层通  知V层更新UI。</li>
+<li>第三种P层的实现：类似第二种，但是不需要Model层，让功能模块去工作（LIibrary:下载、请求、图片加载）。</li>
+</ul>
+</li>
+<li>MVVM：<ol>
+<li>缺点  <ul>
+<li>虽然不用findViewById，但是view都放在一个Object数组里，Activity有很多，就有很多数组，这是第一个占用内存过多的地方。 </li>
+<li>在ViewDataBinding类的static代码块里，在每个Activity都有OnAttachStateChangeListener对每个View做状态改变的监听，状态改变都会调用他的onViewAttachedToWindow方法，从该方法里能看到在ViewDataBinding类里new了Runnable，也就是创建了线程，可见Activity多的时候，会因为每个Activity都new了一个Runnable，线程过多导致内存占用过大。这是第二个占用内存的地方。</li>
+<li>在ViewDataBinding类的invalidateAll()方法，还有一些其他的地方，里面使用了Handler，因为Handler绑定了Looper，每个Activity都这样，占用内存过多。这是第三个占用内存的地方。 </li>
+</ul>
+</li>
+<li>M-&gt;V  V-&gt;M的过程解析<ul>
+<li>ViewDataBinding类的static快里，执行了binding.mRebindRunnable.run();跟着方法走，可以看到executePendingBindings() -&gt;executeBindingsInternal() -&gt;executeBindings()，executeBindings这个方法在ActivityMainBindingImpl实现，里面可以跟踪看到M更新V，V更新M。 </li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="三-Android-系统源码"><a href="#三-Android-系统源码" class="headerlink" title="三. Android 系统源码"></a>三. Android 系统源码</h3><h4 id="1-Handler-为什么在子线程可以使用textView-setText-不报错，使用Toast报错。"><a href="#1-Handler-为什么在子线程可以使用textView-setText-不报错，使用Toast报错。" class="headerlink" title="1. Handler: 为什么在子线程可以使用textView.setText() 不报错，使用Toast报错。"></a>1. Handler: 为什么在子线程可以使用textView.setText() 不报错，使用Toast报错。</h4><ul>
+<li><p>首先这个问题不是绝对的，如果在textView.setText() 之前sleep几秒，同样会报错。</p>
+</li>
+<li><p>因为setText()方法的过程中，会在ViewRootImpl类中执行一个checkThread方法，来检查当前线程和创建ViewRootImpl时的线程是不是同一个线程；而ViewRootImpl的创建是在onResume方法中初始化的，而我们开启的子线程是在onCreat方法中，这个时候程序没有去检测当前线程是不是主线程，所以没有抛异常。因为Toast也有setText方法，但是在这个方法之前还有一些其他操作，等执行到检查线程的方法时，ViewRootImpl已经初始化好了。如果我们在TextView.setText之前sleep一秒，就会报错，因为ViewRootImpl已经初始化好了，会检查线程。</p>
+</li>
+</ul>
+<h4 id="2-Binder"><a href="#2-Binder" class="headerlink" title="2.Binder"></a>2.Binder</h4><p>​    1.  Binder可以实现进程与进程之间的通信。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/（三）Glide的使用/" rel="next" title="（三）Glide的使用">
+                <i class="fa fa-chevron-left"></i> （三）Glide的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/（二）-架构师晋级/" rel="prev" title="（二） 架构师晋级">
+                （二） 架构师晋级 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-架构师入门"><span class="nav-number">1.</span> <span class="nav-text">1. 架构师入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-AOP面向切面架构设计-两种方式"><span class="nav-number">1.0.1.</span> <span class="nav-text">一. AOP面向切面架构设计-两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-设计模式"><span class="nav-number">1.0.2.</span> <span class="nav-text">二. 设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-Android-系统源码"><span class="nav-number">1.0.3.</span> <span class="nav-text">三. Android 系统源码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Handler-为什么在子线程可以使用textView-setText-不报错，使用Toast报错。"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1. Handler: 为什么在子线程可以使用textView.setText() 不报错，使用Toast报错。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Binder"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2.Binder</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

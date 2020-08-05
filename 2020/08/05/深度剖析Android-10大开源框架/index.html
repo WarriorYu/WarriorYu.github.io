@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android第三方库源码分析," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章：介绍 流程，原理，机制，核心类源码剖析  网络框架：Okhttp / retrofit 依赖注入：butterknife / dagger2 异步处理：rxjava / eventbus 图片框架:：glide / picasso 性能优化：leakcanary / blockcanary  第二章：okhttp  OkHttpClient 和 Request 都可以通过Builder模式">
+<meta name="keywords" content="Android第三方库源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度剖析Android 10大开源框架">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/深度剖析Android-10大开源框架/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="第一章：介绍 流程，原理，机制，核心类源码剖析  网络框架：Okhttp / retrofit 依赖注入：butterknife / dagger2 异步处理：rxjava / eventbus 图片框架:：glide / picasso 性能优化：leakcanary / blockcanary  第二章：okhttp  OkHttpClient 和 Request 都可以通过Builder模式">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp1.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp2.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp3.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp4.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp5.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp6.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp7.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp8.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp9.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp10.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp11.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp12.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp13.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp14.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp15.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp16.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp17.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp18.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp19.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp20.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp21.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp22.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit1.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit2.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit3.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit4.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit5.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit6.png">
+<meta property="og:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit7.png">
+<meta property="og:updated_time" content="2020-08-05T02:27:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度剖析Android 10大开源框架">
+<meta name="twitter:description" content="第一章：介绍 流程，原理，机制，核心类源码剖析  网络框架：Okhttp / retrofit 依赖注入：butterknife / dagger2 异步处理：rxjava / eventbus 图片框架:：glide / picasso 性能优化：leakcanary / blockcanary  第二章：okhttp  OkHttpClient 和 Request 都可以通过Builder模式">
+<meta name="twitter:image" content="http://yoursite.com/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/深度剖析Android-10大开源框架/"/>
+
+
+
+
+
+  <title>深度剖析Android 10大开源框架 | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/深度剖析Android-10大开源框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度剖析Android 10大开源框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T10:09:26+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">Android源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>第一章：介绍</strong></p>
+<p>流程，原理，机制，核心类源码剖析</p>
+<ol>
+<li>网络框架：Okhttp / retrofit</li>
+<li>依赖注入：butterknife / dagger2</li>
+<li>异步处理：rxjava / eventbus</li>
+<li>图片框架:：glide / picasso</li>
+<li>性能优化：leakcanary / blockcanary</li>
+</ol>
+<p><strong>第二章：okhttp</strong></p>
+<ol>
+<li><p>OkHttpClient 和 Request 都可以通过Builder模式创建。OkHttpClient可以通过buil模式设置请求的</p>
+</li>
+<li><p>client.dispatcher().enqueue(new AsyncCall(responseCallback));</p>
+</li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp1.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>3.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp2.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="4">
+<li>问题1：okhttp 如何实现同步异步请求？</li>
+</ol>
+<p>​    答：发送同步  / 异步请求都会在dispatcher 中管理其状态。</p>
+<ol start="5">
+<li>问题2：到底什么是dispatcher?</li>
+</ol>
+<p>​    答：dispatcher 的作用为维护请求的状态，并维护一个线程池，用于执行请求。</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp3.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>6.问题3：异步请求为什么需要两个队列？</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp4.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="7">
+<li>Okhttp 的任务调度</li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp5.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>​       答：会在一个请求结束后，调用 Dispatcher 里的finish方法时，finish方法里又调用了promoteCalls()，这里会把readyAsycCalls里等待的请求添加到runningAsyncCalls，并且通过线程池executorService().execute(call)执行这个请求。</p>
+<ol start="8">
+<li><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp6.png" alt="okhttp1" style="zoom:30%;"></p>
+</li>
+<li><p>Okhttp 拦截器</p>
+</li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp7.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="10">
+<li><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp8.png" alt="okhttp1" style="zoom:30%;"></p>
+</li>
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp9.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="12">
+<li>getResponseWithInterceptorChain()</li>
+</ol>
+<p>这个方法所做的就是构成了一个拦截器的链，然后通过依次执行每一个不同功能的拦截器，来获取我们服务器的响应返回。</p>
+<p>13.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp10.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>14.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp11.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>15.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp12.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>16.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp13.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="17">
+<li><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp14.png" alt="okhttp1" style="zoom:30%;"></p>
+</li>
+</ol>
+<p>18.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp15.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>okhttp会将客户端和服务端的连接抽象成一个Connection接口类，它的实现类就是RealConnection。</p>
+<ol start="19">
+<li>ConnectionPool</li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp16.png" alt="okhttp1" style="zoom:30%;"></p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp17.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>20.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp18.png" alt="okhttp1" style="zoom:30%;"></p>
+<ol start="21">
+<li>CallServerInterception </li>
+</ol>
+<p>这里面几个重点类：</p>
+<ul>
+<li>RealInterception:okhttp拦截器中的一个链，所有的网络请求正式通过这个链，链接到一起完成相应的功能。正是proceed方法能让依次进行下一个链的操作。</li>
+<li><p>Httpcodec：okhttp中将所有的流对象都封装成了Httpcodec这个类，这是一个接口，CallServerInterceptor这个拦截器正是通过Httpcodec里的Socket流来完成操作的 。简单讲就是Httpcodec将request编码，将response解码。HttpCodec是对 HTTP 协议操作的抽象，有两个实现：Http1Codec和Http2Codec，顾名思义，它们分别对应 HTTP/1.1 和 HTTP/2 版本的实现。在这个方法的内部实现连接池的复用处理</p>
+</li>
+<li><p>StreamAllocation：它是用来建立okhttp请求所需要的其他的网络设施的组件，它的作用是用来分配Stream。它相当于一个管理类，维护了服务器连接、并发流。</p>
+</li>
+<li>RealConnection:okhttp会将客户端和服务端的连接抽象成一个Connection连接，而这个抽象连接的具体实现就是RealConnection。</li>
+<li>Request: 代表网络请求。</li>
+</ul>
+<p>22.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp19.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>拦截器链里的拦截器</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp20.png" alt="okhttp1" style="zoom:30%;"></p>
+<ul>
+<li>RetryAndFollowUpInterceptor ：主要是重试和重定向我们的请求。</li>
+<li>CacheInterceptor：处理缓存。负责读取缓存直接返回、更新缓存。</li>
+<li>BridgeInterceptor：负责okhttp请求和响应对象与实际的http协议中请求和响应的转换。转换过程中可以处理一些cookie相关的内容。比如请求时，对必要的Header进行一些添加，接收响应时，移除必要的Header。</li>
+<li>ConnectInterceptor： 负责和服务器建立连接。</li>
+<li>CallServerInterceptor：负责完成最终的网络请求。负责发送请求和响应两大工作。负责向服务器发送请求数据、从服务器读取响应数据。</li>
+</ul>
+<p>23.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp21.png" alt="okhttp1" style="zoom:30%;"></p>
+<p>24.</p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/okhttp22.png" alt="okhttp1" style="zoom:30%;"></p>
+<p><strong>第三章：Retrofit</strong></p>
+<ol>
+<li></li>
+</ol>
+<ul>
+<li>App应用程序通过Retrofit请求网络，实际上是使用Retrofit接口层封装请求参数，之后由OkHttp完成后续的请求操作。</li>
+<li>在服务端返回数据之后，OkHttp 将原始的结果交给Retrofit,Retrofit根据用户的需求对结果进行解析。</li>
+</ul>
+<ol start="2">
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit1.png" alt="retrofit1" style="zoom:30%;"></p>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit2.png" alt="retrofit1" style="zoom:30%;"></p>
+<p>Retrofit 将每一个Http请求抽象成了java 接口，然后用注解配置请求的参数。内部实现原理就是用动态代理将接口的注解翻译成一个一个的请求，再有我们的线程池来执行请求。</p>
+<ol start="3">
+<li><p><strong>动态代理</strong>：代理类在程序运行时创建的代理方式。不用频繁的修改每一个代理类的函数。</p>
+</li>
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit3.png" alt="retrofit1" style="zoom:30%;"></p>
+<ol start="5">
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit4.png" alt="retrofit1" style="zoom:30%;"></p>
+<ol start="6">
+<li>涉及到的设计模式：</li>
+</ol>
+<ul>
+<li>工厂设计模式：将类实例化的操作与使用对象的操作相分开，这样客户端使用的时候不需要知道具体参数，就可以通过Factory提供给我们的静态方法，来创建我们需要的产品。</li>
+<li>抽象工厂模式：CallAdapter</li>
+<li>简单工厂模式：Platform 获取平台</li>
+<li>外观模式：屏蔽了Retrofit内部细节，使用者只关注Retrofit，通过Retrofit设置参数就行了。</li>
+<li>策略模式：工厂模式强调的是生产不同的对象。策略模式是这些不同对象的策略方法具体实现。 </li>
+<li>适配器模式：将OkHttpCall适配成不同平台（Android、Java8、ios、Rxjava）的Call。</li>
+<li>观察者模式：Call是被观察者，OkHttpCall实现了Call，是实际的被观察者。Callback是被观察者。  </li>
+</ul>
+<ol start="7">
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit5.png" alt="retrofit1" style="zoom:30%;"></p>
+<ol start="8">
+<li></li>
+</ol>
+<p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit6.png" alt="retrofit1" style="zoom:30%;"></p>
+<ol start="9">
+<li><p><img src="/Users/yuxibing/Work_codes/MyBlog/WarriorYu.github.io/source/images/retrofit7.png" alt="retrofit1" style="zoom:30%;"></p>
+</li>
+</ol>
+<blockquote>
+<p>BAT大牛带你深度剖析Android 10大开源框架</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android第三方库源码分析/" rel="tag"># Android第三方库源码分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/ButtterKnife和AOP/" rel="next" title="ButtterKnife和AOP">
+                <i class="fa fa-chevron-left"></i> ButtterKnife和AOP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/（一）Glide源码解析之整体流程/" rel="prev" title="（一）Glide源码解析之整体流程">
+                （一）Glide源码解析之整体流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

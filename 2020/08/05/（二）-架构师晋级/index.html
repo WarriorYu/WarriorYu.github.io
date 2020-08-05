@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="架构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2. 架构师晋级一. 换肤核心技术1. 首先分析View的创建流程   即分析AppCompatActivity的setContentView(R.layout.activity_main);        12345678   public class MainActivity extends AppCompatActivity &amp;#123;       @Override       prot">
+<meta name="keywords" content="架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（二） 架构师晋级">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/（二）-架构师晋级/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="2. 架构师晋级一. 换肤核心技术1. 首先分析View的创建流程   即分析AppCompatActivity的setContentView(R.layout.activity_main);        12345678   public class MainActivity extends AppCompatActivity &amp;#123;       @Override       prot">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-08-05T02:56:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（二） 架构师晋级">
+<meta name="twitter:description" content="2. 架构师晋级一. 换肤核心技术1. 首先分析View的创建流程   即分析AppCompatActivity的setContentView(R.layout.activity_main);        12345678   public class MainActivity extends AppCompatActivity &amp;#123;       @Override       prot">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/（二）-架构师晋级/"/>
+
+
+
+
+
+  <title>（二） 架构师晋级 | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/（二）-架构师晋级/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">（二） 架构师晋级</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T10:55:38+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2-架构师晋级"><a href="#2-架构师晋级" class="headerlink" title="2. 架构师晋级"></a>2. 架构师晋级</h1><h3 id="一-换肤核心技术"><a href="#一-换肤核心技术" class="headerlink" title="一. 换肤核心技术"></a>一. 换肤核心技术</h3><h4 id="1-首先分析View的创建流程"><a href="#1-首先分析View的创建流程" class="headerlink" title="1. 首先分析View的创建流程"></a>1. 首先分析View的创建流程</h4><p>   即分析AppCompatActivity的setContentView(R.layout.activity_main);    </p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">         	<span class="comment">//1.</span></span><br><span class="line">           setContentView(R.layout.activity_main);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppCompatActivity</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> <span class="keyword">implements</span> <span class="title">AppCompatCallback</span>,</span></span><br><span class="line"><span class="class">        <span class="title">TaskStackBuilder</span>.<span class="title">SupportParentable</span>, <span class="title">ActionBarDrawerToggle</span>.<span class="title">DelegateProvider</span> </span>&#123;</span><br><span class="line">          </span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(@LayoutRes <span class="keyword">int</span> layoutResID)</span> </span>&#123;</span><br><span class="line">     <span class="comment">//2.</span></span><br><span class="line">      getDelegate().setContentView(layoutResID);</span><br><span class="line">  &#125;                 </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AppCompatDelegate</span> </span>&#123;</span><br><span class="line">  <span class="comment">//3.</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(@LayoutRes <span class="keyword">int</span> resId)</span></span>;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppCompatDelegateImpl</span> <span class="keyword">extends</span> <span class="title">AppCompatDelegate</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">MenuBuilder</span>.<span class="title">Callback</span>, <span class="title">LayoutInflater</span>.<span class="title">Factory2</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//4. setContentViews是在这里实现的</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(<span class="keyword">int</span> resId)</span> </span>&#123;</span><br><span class="line">      ensureSubDecor();</span><br><span class="line">      ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);</span><br><span class="line">      contentParent.removeAllViews();</span><br><span class="line">      <span class="comment">//我们看这个inflate方法，看是怎么填充view的</span></span><br><span class="line">      LayoutInflater.from(mContext).inflate(resId, contentParent);</span><br><span class="line">      mAppCompatWindowCallback.getWrapped().onContentChanged();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutInflater</span> </span>&#123;</span><br><span class="line">  <span class="comment">//5. </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(@LayoutRes <span class="keyword">int</span> resource, @Nullable ViewGroup root)</span> </span>&#123;</span><br><span class="line">    		<span class="comment">//跟进这个方法</span></span><br><span class="line">        <span class="keyword">return</span> inflate(resource, root, root != <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(@LayoutRes <span class="keyword">int</span> resource, @Nullable ViewGroup root, <span class="keyword">boolean</span> attachToRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Resources res = getContext().getResources();</span><br><span class="line">        View view = tryInflatePrecompiled(resource, res, root, attachToRoot);</span><br><span class="line">        <span class="keyword">if</span> (view != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> view;</span><br><span class="line">        &#125;</span><br><span class="line">        XmlResourceParser parser = res.getLayout(resource);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          	<span class="comment">//跟进这个方法</span></span><br><span class="line">            <span class="keyword">return</span> inflate(parser, root, attachToRoot);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            parser.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">   <span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(XmlPullParser parser, @Nullable ViewGroup root, <span class="keyword">boolean</span> attachToRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (mConstructorArgs) &#123;</span><br><span class="line">        <span class="comment">// ... 省略部分代码</span></span><br><span class="line">   			<span class="comment">// Temp is the root view that was found in the xml</span></span><br><span class="line">        <span class="comment">// 跟进这个方法</span></span><br><span class="line">        <span class="keyword">final</span> View temp = createViewFromTag(root, name, inflaterContext, attrs);       </span><br><span class="line">        result = temp;</span><br><span class="line">        <span class="comment">// ... 省略部分代码  </span></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">   &#125;</span><br><span class="line">     </span><br><span class="line">   <span class="meta">@UnsupportedAppUsage</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> View <span class="title">createViewFromTag</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//6. 马上就能看到是怎么创建view的了 </span></span><br><span class="line">       <span class="keyword">return</span> createViewFromTag(parent, name, context, attrs, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="meta">@UnsupportedAppUsage</span></span><br><span class="line">    <span class="function">View <span class="title">createViewFromTag</span><span class="params">(View parent, String name, Context context, AttributeSet attrs,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">boolean</span> ignoreThemeAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (name.equals(<span class="string">"view"</span>)) &#123;</span><br><span class="line">            name = attrs.getAttributeValue(<span class="keyword">null</span>, <span class="string">"class"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">				<span class="comment">// ... 省略部分代码  </span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">//7. 在这里创建view -&gt;看下面的分析8</span></span><br><span class="line">            View view = tryCreateView(parent, name, context, attrs);</span><br><span class="line">						<span class="comment">//9. 如果我们拦截view的创建后，还是为空，则走系统的方法</span></span><br><span class="line">            <span class="keyword">if</span> (view == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">final</span> Object lastContext = mConstructorArgs[<span class="number">0</span>];</span><br><span class="line">                mConstructorArgs[<span class="number">0</span>] = context;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (-<span class="number">1</span> == name.indexOf(<span class="string">'.'</span>)) &#123;</span><br><span class="line">                        view = onCreateView(context, parent, name, attrs);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                      <span class="comment">//控件名有[.]的则是自定义的控件，走这个方法</span></span><br><span class="line">                        view = createView(context, name, <span class="keyword">null</span>, attrs);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    mConstructorArgs[<span class="number">0</span>] = lastContext;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> view;</span><br><span class="line">        		<span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">  <span class="comment">//8. 分析   </span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> View <span class="title">tryCreateView</span><span class="params">(@Nullable View parent, @NonNull String name,   </span></span></span><br><span class="line"><span class="function"><span class="params">				// .... </span></span></span><br><span class="line"><span class="function"><span class="params">        View view;</span></span></span><br><span class="line"><span class="function"><span class="params">        // 如果我们提前做了工作，让mFactory2！=<span class="keyword">null</span>,则调用了mFactory2.onCreateView  </span></span></span><br><span class="line"><span class="function"><span class="params">        //我们在Actitivy中重写onCreateView 则拦截住了系统创建view的过程                       </span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">if</span> (mFactory2 != <span class="keyword">null</span>)</span> </span>&#123;</span><br><span class="line">            view = mFactory2.onCreateView(parent, name, context, attrs);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">            view = mFactory.onCreateView(name, context, attrs);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            view = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">				</span><br><span class="line">        <span class="keyword">if</span> (view == <span class="keyword">null</span> &amp;&amp; mPrivateFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">            view = mPrivateFactory.onCreateView(parent, name, context, attrs);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   综上分析，Activity在setContentView(R.layout.activity_main)的时候，通过mFactory2.onCreateView来创建view，我们在Activity中重写onCreateView拦截系统的方法，来创建自己可以实现换肤的控件，没有拦截的控件还是走系统的方法去创建。</p>
+<p>   既然找到了需要拦截的方法，那我们再看在哪里可以拦截这个方法。开始分析源码：</p>
+<h4 id="2-源码分析，寻找突破点，即找一个可以换肤的节点。"><a href="#2-源码分析，寻找突破点，即找一个可以换肤的节点。" class="headerlink" title="2. 源码分析，寻找突破点，即找一个可以换肤的节点。"></a>2. 源码分析，寻找突破点，即找一个可以换肤的节点。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    		<span class="comment">//1. 进入onCreate</span></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_test);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppCompatActivity</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> <span class="keyword">implements</span> <span class="title">AppCompatCallback</span>, </span></span><br><span class="line"><span class="class">																								<span class="title">SupportParentable</span>, <span class="title">DelegateProvider</span> </span>&#123;</span><br><span class="line"> 		</span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">      AppCompatDelegate delegate = <span class="keyword">this</span>.getDelegate();</span><br><span class="line">			<span class="comment">//2. 进入installViewFactory</span></span><br><span class="line">      delegate.installViewFactory();</span><br><span class="line">      delegate.onCreate(savedInstanceState);</span><br><span class="line">      <span class="keyword">if</span> (delegate.applyDayNight() &amp;&amp; <span class="keyword">this</span>.mThemeId != <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (VERSION.SDK_INT &gt;= <span class="number">23</span>) &#123;</span><br><span class="line">              <span class="keyword">this</span>.onApplyThemeResource(<span class="keyword">this</span>.getTheme(), <span class="keyword">this</span>.mThemeId, <span class="keyword">false</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">this</span>.setTheme(<span class="keyword">this</span>.mThemeId);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AppCompatDelegate</span> </span>&#123;</span><br><span class="line">     <span class="comment">// If you are using your own Factory or Factory2 then you can omit this call, and 			// instead call createView(android.view.View, String, android.content.Context,</span></span><br><span class="line">     <span class="comment">// android.util.AttributeSet) from your factory to return any compatible widgets.</span></span><br><span class="line">     <span class="comment">// 源码注释：如果你想使用自定义的Factory or Factory2，要避免调用此方法，并且重写factory的			 // createView方法</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//3. installViewFactory是一个抽象方法，进入它的实现类继续查看</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">installViewFactory</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppCompatDelegateImpl</span> <span class="keyword">extends</span> <span class="title">AppCompatDelegate</span> <span class="keyword">implements</span> <span class="title">Callback</span>, <span class="title">Factory2</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">installViewFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      LayoutInflater layoutInflater = LayoutInflater.from(mContext);</span><br><span class="line">    	<span class="comment">// 在这里进行了判null的操作，如果我们自己设置了Factory，就阻止了下面的操作，就可以实现自定义</span></span><br><span class="line">      <span class="keyword">if</span> (layoutInflater.getFactory() == <span class="keyword">null</span>) &#123;</span><br><span class="line">        	<span class="comment">//4. 此类实现了Factory2，因为setFactory2(layoutInflater, this)第二个参数是</span></span><br><span class="line">        	<span class="comment">//this，即把Factory2的实现类传进去，实现类实现了onCreateView方法。</span></span><br><span class="line">          LayoutInflaterCompat.setFactory2(layoutInflater, <span class="keyword">this</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (!(layoutInflater.getFactory2() <span class="keyword">instanceof</span> AppCompatDelegateImpl)) &#123;</span><br><span class="line">              Log.i(TAG, <span class="string">"The Activity's LayoutInflater already has a Factory installed"</span></span><br><span class="line">                      + <span class="string">" so we can not install AppCompat's"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * From &#123;<span class="doctag">@link</span> LayoutInflater.Factory2&#125;.</span></span><br><span class="line"><span class="comment">   * 5. 实现Factory2的onCreateView方法，在onCreateView方法又调用了createView方法</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> View <span class="title">onCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> createView(parent, name, context, attrs);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * From &#123;<span class="doctag">@link</span> LayoutInflater.Factory2&#125;.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(String name, Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> onCreateView(<span class="keyword">null</span>, name, context, attrs);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> View <span class="title">createView</span><span class="params">(View parent, <span class="keyword">final</span> String name, @NonNull Context context,</span></span></span><br><span class="line"><span class="function"><span class="params">          @NonNull AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//7. 在这个createView方法里就是做了new AppCompatViewInflater()这个工作</span></span><br><span class="line">    	<span class="comment">//  ... 省略部分代码</span></span><br><span class="line">      mAppCompatViewInflater = <span class="keyword">new</span> AppCompatViewInflater();</span><br><span class="line">    	<span class="comment">//  ... 省略部分代码</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">//8. 最后调用了刚才实例化的AppCompatViewInflater的createView方法</span></span><br><span class="line">      <span class="keyword">return</span> mAppCompatViewInflater.createView(parent, name, context, attrs, 		</span><br><span class="line">                                               inheritContext,</span><br><span class="line">              IS_PRE_LOLLIPOP, </span><br><span class="line">              <span class="keyword">true</span>, </span><br><span class="line">              VectorEnabledTintResources.shouldBeUsed()</span><br><span class="line">      );</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppCompatViewInflater</span> </span>&#123;</span><br><span class="line">  <span class="comment">//9. 第8步调用的这个方法。</span></span><br><span class="line">	<span class="function"><span class="keyword">final</span> View <span class="title">createView</span><span class="params">(View parent, <span class="keyword">final</span> String name, @NonNull Context context,</span></span></span><br><span class="line"><span class="function"><span class="params">            @NonNull AttributeSet attrs, <span class="keyword">boolean</span> inheritContext,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">boolean</span> readAndroidTheme, <span class="keyword">boolean</span> readAppTheme, <span class="keyword">boolean</span> wrapContext)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// ... 省略部分代码</span></span><br><span class="line">        View view = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// We need to 'inject' our tint aware Views in place of the standard </span></span><br><span class="line">        <span class="comment">// framework versions</span></span><br><span class="line">        <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"TextView"</span>:</span><br><span class="line">                view = createTextView(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"ImageView"</span>:</span><br><span class="line">                view = createImageView(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Button"</span>:</span><br><span class="line">                view = createButton(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"EditText"</span>:</span><br><span class="line">                view = createEditText(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Spinner"</span>:</span><br><span class="line">                view = createSpinner(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"ImageButton"</span>:</span><br><span class="line">                view = createImageButton(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"CheckBox"</span>:</span><br><span class="line">                view = createCheckBox(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"RadioButton"</span>:</span><br><span class="line">                view = createRadioButton(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"CheckedTextView"</span>:</span><br><span class="line">                view = createCheckedTextView(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"AutoCompleteTextView"</span>:</span><br><span class="line">                view = createAutoCompleteTextView(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"MultiAutoCompleteTextView"</span>:</span><br><span class="line">                view = createMultiAutoCompleteTextView(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"RatingBar"</span>:</span><br><span class="line">                view = createRatingBar(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"SeekBar"</span>:</span><br><span class="line">                view = createSeekBar(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"ToggleButton"</span>:</span><br><span class="line">                view = createToggleButton(context, attrs);</span><br><span class="line">                verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:          </span><br><span class="line">                view = createView(context, name, attrs);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//... 省略部分代码</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Activity</span> <span class="keyword">extends</span> <span class="title">ContextThemeWrapper</span></span></span><br><span class="line"><span class="class">  			//10. 通过查看<span class="title">Activity</span>的源码，可以知道<span class="title">Activity</span>实现了<span class="title">Factory2</span>接口，所以我们可以直接在</span></span><br><span class="line"><span class="class">  			// 自己新建的<span class="title">MainActivity</span>中直接重写<span class="title">Factory2</span>的<span class="title">onCreateView</span>方法。</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">LayoutInflater</span>.<span class="title">Factory2</span>,</span></span><br><span class="line"><span class="class">        <span class="title">Window</span>.<span class="title">Callback</span>, <span class="title">KeyEvent</span>.<span class="title">Callback</span>,</span></span><br><span class="line"><span class="class">        <span class="title">OnCreateContextMenuListener</span>, <span class="title">ComponentCallbacks2</span>,</span></span><br><span class="line"><span class="class">        <span class="title">Window</span>.<span class="title">OnWindowDismissedCallback</span>, <span class="title">WindowControllerCallback</span>,</span></span><br><span class="line"><span class="class">        <span class="title">AutofillManager</span>.<span class="title">AutofillClient</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<p>   通过以上分析我们得出结论：</p>
+<ul>
+<li>Activity在onCreate方法里调用了super.onCreate(savedInstanceState) -&gt; delegate.installViewFactory() -&gt; LayoutInflaterCompat.setFactory2(layoutInflater, this) -&gt; this是Factory2的实现类，实现类实现了onCreateView方法 -&gt;mAppCompatViewInflater.createView() </li>
+<li>mAppCompatViewInflater.createView() 在这里面通过name（即控件的标签名）初始化了对应的view。 </li>
+<li>我们可以在初始化view的时候做工作，即把控件换成自定义控件，自定义控件加上可以动态换肤的工作。 </li>
+<li>所以如果想实现换肤，可以实现mAppCompatViewInflater.createView()方法里的工作，又因为Factory2.onCreateView方法调用了这个方法，那么我们可以通过重写onCreateView()来实现目的，又因为Activity实现了Factory2，所以我们可以直接在自己的Activity中重写onCreateView()方法。</li>
+<li>通过查看AppCompatActivity.</li>
+</ul>
+<h4 id="3-换肤实现"><a href="#3-换肤实现" class="headerlink" title="3. 换肤实现"></a>3. 换肤实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">SkinActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String skinPath;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.LOLLIPOP)</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1. 在这里调用了SkinActivity的onCreate</span></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ((<span class="string">"皮肤包"</span>).equals(PreferencesUtils.getString(<span class="keyword">this</span>, <span class="string">"当前皮肤"</span>))) &#123;</span><br><span class="line">            skinDynamic(skinPath, R.color.skin_item_color);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            defaultSkin(R.color.colorPrimary);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 换肤按钮（api限制：5.0版本）</span></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.LOLLIPOP)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">skinDynamic</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 真实项目中：需要先判断当前皮肤，避免重复操作！</span></span><br><span class="line">        <span class="keyword">if</span> (!(<span class="string">"皮肤包"</span>).equals(PreferencesUtils.getString(<span class="keyword">this</span>, <span class="string">"currentSkin"</span>))) &#123;</span><br><span class="line">           skinDynamic(skinPath, R.color.skin_item_color);</span><br><span class="line">            PreferencesUtils.putString(<span class="keyword">this</span>, <span class="string">"currentSkin"</span>, <span class="string">"皮肤包"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认按钮（api限制：5.0版本）</span></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.LOLLIPOP)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">skinDefault</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="string">"default"</span>).equals(PreferencesUtils.getString(<span class="keyword">this</span>, <span class="string">"currentSkin"</span>))) &#123;       </span><br><span class="line">            defaultSkin(R.color.colorPrimary);</span><br><span class="line">            PreferencesUtils.putString(<span class="keyword">this</span>, <span class="string">"currentSkin"</span>, <span class="string">"default"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">openChangeSkin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkinActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CustomAppCompatViewInflater viewInflater;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//2. 在这里setFactory2(layoutInflater, this)方法，可以阻止</span></span><br><span class="line">      	<span class="comment">//AppCompatDelegateImpl.installViewFactory(),从而阻止了installViewFactory到	</span></span><br><span class="line">      	<span class="comment">//AppCompatViewInflater.createView()的工作，即阻止了[源码分析]的4-9步。</span></span><br><span class="line">      	<span class="comment">//从而实现我们自定义控件的逻辑</span></span><br><span class="line">        LayoutInflater layoutInflater = LayoutInflater.from(<span class="keyword">this</span>);</span><br><span class="line">        LayoutInflaterCompat.setFactory2(layoutInflater, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet </span></span></span><br><span class="line"><span class="function"><span class="params">                             attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (openChangeSkin()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (viewInflater == <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="comment">//3. 自定义CustomAppCompatViewInflater</span></span><br><span class="line">                viewInflater = <span class="keyword">new</span> CustomAppCompatViewInflater(context);</span><br><span class="line">            &#125;</span><br><span class="line">            viewInflater.setName(name);</span><br><span class="line">            viewInflater.setAttrs(attrs);</span><br><span class="line">      			<span class="comment">//4. 在这个方法里将布局中的控件，更换为自定义的换肤控件，从而实现换肤的功能。</span></span><br><span class="line">            <span class="keyword">return</span> viewInflater.autoMatch();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onCreateView(parent, name, context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.LOLLIPOP)</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">defaultSkin</span><span class="params">(<span class="keyword">int</span> themeColorId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.skinDynamic(<span class="keyword">null</span>, themeColorId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态换肤（api限制：5.0版本）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.LOLLIPOP)</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">skinDynamic</span><span class="params">(String skinPath, <span class="keyword">int</span> themeColorId)</span> </span>&#123;</span><br><span class="line">        SkinManager.getInstance().loaderSkinResources(skinPath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (themeColorId != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> themeColor = SkinManager.getInstance().getColor(themeColorId);</span><br><span class="line">            StatusBarUtils.forStatusBar(<span class="keyword">this</span>, themeColor);</span><br><span class="line">            NavigationUtils.forNavigation(<span class="keyword">this</span>, themeColor);</span><br><span class="line">            ActionBarUtils.forActionBar(<span class="keyword">this</span>, themeColor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        applyViews(getWindow().getDecorView());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 控件回调监听，匹配上则给控件执行换肤方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">applyViews</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (view <span class="keyword">instanceof</span> ViewsMatch) &#123;</span><br><span class="line">            ViewsMatch viewsMatch = (ViewsMatch) view;</span><br><span class="line">            viewsMatch.skinnableView();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (view <span class="keyword">instanceof</span> ViewGroup) &#123;</span><br><span class="line">            ViewGroup parent = (ViewGroup) view;</span><br><span class="line">            <span class="keyword">int</span> childCount = parent.getChildCount();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</span><br><span class="line">                applyViews(parent.getChildAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义控件加载器（可以考虑该类不被继承）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomAppCompatViewInflater</span> <span class="keyword">extends</span> <span class="title">AppCompatViewInflater</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 控件名</span></span><br><span class="line">    <span class="keyword">private</span> Context context; <span class="comment">// 上下文</span></span><br><span class="line">    <span class="keyword">private</span> AttributeSet attrs; <span class="comment">// 某控件对应所有属性</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomAppCompatViewInflater</span><span class="params">(@NonNull Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.context = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAttrs</span><span class="params">(AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.attrs = attrs;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 自动匹配控件名，并初始化控件对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  	<span class="comment">//4. 通过将布局文件里对应name的控件，替换为我们自己的换肤自定义控件，实现换肤操作。</span></span><br><span class="line">		<span class="comment">//注意： 这里有的控件才会实现换肤，没有控件不会实现换肤</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">autoMatch</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        View view = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"LinearLayout"</span>:</span><br><span class="line">                <span class="comment">// view = super.createTextView(context, attrs); // 源码写法</span></span><br><span class="line">                view = <span class="keyword">new</span> SkinnableLinearLayout(context, attrs);</span><br><span class="line">                <span class="keyword">this</span>.verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"RelativeLayout"</span>:</span><br><span class="line">                view = <span class="keyword">new</span> SkinnableRelativeLayout(context, attrs);</span><br><span class="line">                <span class="keyword">this</span>.verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"TextView"</span>:</span><br><span class="line">                view = <span class="keyword">new</span> SkinnableTextView(context, attrs);</span><br><span class="line">                <span class="keyword">this</span>.verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"ImageView"</span>:</span><br><span class="line">                view = <span class="keyword">new</span> SkinnableImageView(context, attrs);</span><br><span class="line">                <span class="keyword">this</span>.verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Button"</span>:</span><br><span class="line">                view = <span class="keyword">new</span> SkinnableButton(context, attrs);</span><br><span class="line">                <span class="keyword">this</span>.verifyNotNull(view, name);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 继承TextView兼容包，9.0源码中也是如此</span></span><br><span class="line"><span class="comment"> * 参考：AppCompatViewInflater.java</span></span><br><span class="line"><span class="comment"> * 86行 + 138行 + 206行</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkinnableTextView</span> <span class="keyword">extends</span> <span class="title">AppCompatTextView</span> <span class="keyword">implements</span> <span class="title">ViewsMatch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AttrsBean attrsBean;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkinnableTextView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkinnableTextView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, attrs, android.R.attr.textViewStyle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkinnableTextView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line"></span><br><span class="line">        attrsBean = <span class="keyword">new</span> AttrsBean();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据自定义属性，匹配控件属性的类型集合，如：background + textColor</span></span><br><span class="line">        TypedArray typedArray = context.obtainStyledAttributes(attrs,</span><br><span class="line">                R.styleable.SkinnableTextView,</span><br><span class="line">                defStyleAttr, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 存储到临时JavaBean对象</span></span><br><span class="line">        attrsBean.saveViewResource(typedArray, R.styleable.SkinnableTextView);</span><br><span class="line">        <span class="comment">// 这一句回收非常重要！obtainStyledAttributes()有语法提示！！</span></span><br><span class="line">        typedArray.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">//对Textview进行换肤</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">skinnableView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 根据自定义属性，获取styleable中的background属性</span></span><br><span class="line">        <span class="keyword">int</span> key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_background];</span><br><span class="line">        <span class="comment">// 根据styleable获取控件某属性的resourceId</span></span><br><span class="line">        <span class="keyword">int</span> backgroundResourceId = attrsBean.getViewResource(key);</span><br><span class="line">        <span class="keyword">if</span> (backgroundResourceId &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 是否默认皮肤</span></span><br><span class="line">            <span class="keyword">if</span> (SkinManager.getInstance().isDefaultSkin()) &#123;</span><br><span class="line">                <span class="comment">// 兼容包转换</span></span><br><span class="line">                Drawable drawable = ContextCompat.getDrawable(getContext(), backgroundResourceId);</span><br><span class="line">                <span class="comment">// 控件自带api，这里不用setBackgroundColor()因为在9.0测试不通过</span></span><br><span class="line">                <span class="comment">// setBackgroundDrawable本来过时了，但是兼容包重写了方法</span></span><br><span class="line">                setBackgroundDrawable(drawable);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 获取皮肤包资源</span></span><br><span class="line">                Object skinResourceId = SkinManager.getInstance().getBackgroundOrSrc(backgroundResourceId);</span><br><span class="line">                <span class="comment">// 兼容包转换</span></span><br><span class="line">                <span class="keyword">if</span> (skinResourceId <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">                    <span class="keyword">int</span> color = (<span class="keyword">int</span>) skinResourceId;</span><br><span class="line">                    setBackgroundColor(color);</span><br><span class="line">                    <span class="comment">// setBackgroundResource(color); // 未做兼容测试</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    Drawable drawable = (Drawable) skinResourceId;</span><br><span class="line">                    setBackgroundDrawable(drawable);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据自定义属性，获取styleable中的textColor属性</span></span><br><span class="line">        key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_textColor];</span><br><span class="line">        <span class="keyword">int</span> textColorResourceId = attrsBean.getViewResource(key);</span><br><span class="line">        <span class="keyword">if</span> (textColorResourceId &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (SkinManager.getInstance().isDefaultSkin()) &#123;</span><br><span class="line">                ColorStateList color = ContextCompat.getColorStateList(getContext(), textColorResourceId);</span><br><span class="line">                setTextColor(color);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ColorStateList color = SkinManager.getInstance().getColorStateList(textColorResourceId);</span><br><span class="line">                setTextColor(color);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据自定义属性，获取styleable中的字体 custom_typeface 属性</span></span><br><span class="line">        key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_custom_typeface];</span><br><span class="line">        <span class="keyword">int</span> textTypefaceResourceId = attrsBean.getViewResource(key);</span><br><span class="line">        <span class="keyword">if</span> (textTypefaceResourceId &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (SkinManager.getInstance().isDefaultSkin()) &#123;</span><br><span class="line">                setTypeface(Typeface.DEFAULT);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                setTypeface(SkinManager.getInstance().getTypeface(textTypefaceResourceId));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二-组件化框架设计"><a href="#二-组件化框架设计" class="headerlink" title="二. 组件化框架设计"></a>二. 组件化框架设计</h3><h4 id="1-APT-Annotation-Processing-Tool"><a href="#1-APT-Annotation-Processing-Tool" class="headerlink" title="1. APT(Annotation Processing Tool)"></a>1. APT(Annotation Processing Tool)</h4><ul>
+<li><p>是一种处理注释的工具，它对源代码文件进行检测找出其中的Annotation，根据注解自动生成代码，如果想要自定义的注解处理器能够正常运行，必须通过APT工具来进行处理。</p>
+</li>
+<li><p>也可以这样理解，只有通过声明APT工具后，程序在编译期间自定义注解解释器才能执行。</p>
+</li>
+<li><p>通俗理解：根据规则，帮我们生成代码、生成类文件。</p>
+</li>
+</ul>
+<h4 id="2-工具："><a href="#2-工具：" class="headerlink" title="2. 工具："></a>2. 工具：</h4><ol>
+<li><a href="https://github.com/square/javapoet" target="_blank" rel="noopener">square/javapoet</a>：JavaPoet 是一个生成.java源文件的Java API.</li>
+<li><a href="https://github.com/alibaba/ARouter" target="_blank" rel="noopener">alibaba/ARouter</a>: 帮助 Android App 进行组件化改造的路由框架 .</li>
+</ol>
+<h4 id="3-组件化里路由的基本思想"><a href="#3-组件化里路由的基本思想" class="headerlink" title="3. 组件化里路由的基本思想"></a>3. 组件化里路由的基本思想</h4><ol>
+<li><p>（创建注解）新建Java Library类型的arouter_annotation模块。在里面新建路由注解（ARouter）。</p>
+</li>
+<li><p>（处理注解）新建Java Library类型的compiler模块。在里面新建继承AbstractProcessor的注解处理类，根据注解获取类的信息，以及注解上的参数等信息，来编写生成源代码的代码。最后在编译时生成源代码文件。</p>
+<ul>
+<li><p>使用的类库</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// As-3.4.1 + gradle5.1.1-all + auto-service:1.0-rc4</span></span><br><span class="line">compileOnly<span class="string">'com.google.auto.service:auto-service:1.0-rc4'</span></span><br><span class="line">annotationProcessor<span class="string">'com.google.auto.service:auto-service:1.0-rc4'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 帮助我们通过类调用的形式来生成Java代码</span></span><br><span class="line">implementation <span class="string">"com.squareup:javapoet:1.9.0"</span></span><br><span class="line"><span class="comment">// 引入annotation，处理@ARouter注解</span></span><br><span class="line"><span class="function">implementation <span class="title">project</span><span class="params">(<span class="string">':arouter_annotation'</span>)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>（使用注解）@ARouter(path = “/app/MainActivity”) </p>
+</li>
+</ol>
+<h3 id="三-插件化框架设计"><a href="#三-插件化框架设计" class="headerlink" title="三. 插件化框架设计"></a>三. 插件化框架设计</h3><h4 id="1-原理：可安装运行的宿主APP-gt-可以通过插件化，运行调用下载到本地的没有安装的apk文件。"><a href="#1-原理：可安装运行的宿主APP-gt-可以通过插件化，运行调用下载到本地的没有安装的apk文件。" class="headerlink" title="1. 原理：可安装运行的宿主APP -&gt;可以通过插件化，运行调用下载到本地的没有安装的apk文件。"></a>1. 原理：可安装运行的宿主APP -&gt;可以通过插件化，运行调用下载到本地的没有安装的apk文件。</h4><h4 id="2-占位（插桩）式插件化框架"><a href="#2-占位（插桩）式插件化框架" class="headerlink" title="2. 占位（插桩）式插件化框架"></a>2. 占位（插桩）式插件化框架</h4><ol>
+<li><p>基本思想：</p>
+<ul>
+<li>通过AssetManager获取sd卡中下载好的插件apk，可以获取Resources和DexClassLoader。</li>
+<li>新建公共库，定义标准（接口ActivityInterface），比如Activity、service的生命周期方法，以及获取宿主的Context等接口。</li>
+<li>作为插件的apk，里面的Activity实现标准接口ActivityInterface。</li>
+<li>宿主中新建一个占位(代理)的Activity(ProxyActivity)，并且通过重写相关方法，替换为插件的Resources和DexClassLoader。</li>
+<li>当启动插件中的Activity时，先获取插件Activity的ActivityInfo，然后就可以通过反射获取到Activity对象，即ActivityInterface的实现类对象，通过这个对象就可以执行插件里面Activity的方法了。</li>
+<li>因为插件中使用的是宿主中的Activity，只需要在宿主中的清单文件中注册代理Activity就行，插件中其实不是真正的Activity，无需注册。</li>
+<li>总结为，在宿主中创建一个空的代理Activity，当调用插件中的Activity时，在代理Activity中的方法中调用插件中相同的方法。 </li>
+</ul>
+</li>
+<li><p>Activity、service使用插件的流程差不多，但是BroadcastReceivery有发送和接收两步，所以多了一步接收的操作。</p>
+</li>
+<li><p>静态注册的广播，是什么时候注册的？</p>
+<ul>
+<li>手机开机的时候，所有的app，再次进行安装一遍，系统会去解析AndroidManifest，解析静态广播，进行注册。</li>
+</ul>
+</li>
+<li><p>有关插件的问题</p>
+<ul>
+<li><p>在插件中，为什么不能使用 this<br>答：因为插件是没有安装手机上安装的，是无法拥有组件环境的。</p>
+</li>
+<li><p>为什么要有代理的Activity<br>答：由于插件中的Activity，并不是一个能够运行的组件，所以需要代理的Activity去代替  插件中的Activity (例如：Activity任务进栈)。</p>
+</li>
+<li><p>这种插件化，在写插件开发的时候有什么（要注意的事项）<br>答：所有关于操作，组件环境的地方，都必须使用 宿主的环境。 </p>
+</li>
+</ul>
+</li>
+<li><p>Apk解析原理系统源码分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">1.静态注册的广播,是什么时候注册的？</span><br><span class="line">手机开机的时候, 所有的app，再次进行安装一遍, 系统会去解析AndroidManifest，解析静态广播后，就会自动注册</span><br><span class="line"></span><br><span class="line">2.我们去分析 安装</span><br><span class="line">data/app 放置目录</span><br><span class="line">data/data/包名/ 应用所属目录</span><br><span class="line">data/dalvik-cache  虚拟机去加载执行指令</span><br><span class="line"></span><br><span class="line">3.该分析那个目录</span><br><span class="line">data/app 放置目录</span><br><span class="line"></span><br><span class="line">手机开机安装app的时候，安装 过后 马上就会 全盘扫描，data/app 放置目录</span><br><span class="line"></span><br><span class="line">解析出 app apk 文件 里面所有组件，包括权限，系统会去解析AndroidManifest</span><br><span class="line"></span><br><span class="line">Android 会在 安装过后，会马上扫描此目录data/app 放置目录 ---&gt; 解析 apk 文件 里面的配置信息AndroidManifest.xml ,如果里面有静态配置的广播</span><br><span class="line">就会要去注册广播</span><br><span class="line"></span><br><span class="line">分析系统源码，是如何进行解析apk</span><br><span class="line"></span><br><span class="line">PackageManagerService</span><br><span class="line"></span><br><span class="line">【目标】：看系统是如何 去解析 apk 文件里面的 组件信息的</span><br><span class="line">系统是在安装的时候，才会去扫描，apk</span><br><span class="line"></span><br><span class="line">PackageManagerService</span><br><span class="line"></span><br><span class="line">Linux内核驱动  --- init进程  -- zygote进程 孵化  SystemServer --- PackageManagerService启动</span><br><span class="line"></span><br><span class="line">PackageManagerService启动</span><br><span class="line">pms 如何去 处理 data/app/目录 ，如何解析apk</span><br><span class="line"></span><br><span class="line">dataDir /data/目录</span><br><span class="line"></span><br><span class="line">mAppInstallDir = new File(dataDir, &quot;app&quot;); /data/app/目录</span><br><span class="line">mAppInstallDir：如何去解析apk文件的</span><br><span class="line"></span><br><span class="line">scanDirTracedLI 是要去扫描 /data/app/目录下的apk文件  ---&gt; 解析AndroidManifest 里面的所有信息</span><br><span class="line"></span><br><span class="line">扫描 apk 文件，解析apk  scanPackageLI ---&gt;</span><br><span class="line"></span><br><span class="line">parsePackage：解析 apk 文件里面的所有信息</span><br><span class="line"></span><br><span class="line">Package ---&gt;  apk 里面的 AndroidManifest配置信息 （所有的）</span><br><span class="line"></span><br><span class="line">拿到了Package，就能拿到 静态的广播信息</span><br><span class="line"></span><br><span class="line">最终的目标：</span><br><span class="line">&lt;!-- 静态注册的广播 --&gt;</span><br><span class="line">&lt;receiver android:name=&quot;.StaticReceiver&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;intent-filter&gt;</span><br><span class="line"></span><br><span class="line">                &lt;action android:name=&quot;plugin.static_receiver&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/receiver&gt;</span><br></pre></td></tr></table></figure>
+<p>总结为：PackageManagerService可以加载手机里的任何apk，从它的构造方法可以看出，安装的apk文件都在data/app目录里，当扫描这个目录里的某个apk文件时,，调用了PackageParser.parsePackage()方法，并且返回Package类，这个类有个字段属性receivers（ArrayList<activity> ），就是AndroidMannifest里的receiver，receivers里面的泛型Activity不是四大组件的Activity，通过这个Activity可以获取跟广播相关的一些信息。所以，我们可以通过反射，根据上面的源码，一步步获取AndroidManifest里有关广播的一些信息，然后在代码中注册广播即可。</activity></p>
+</li>
+</ol>
+<h4 id="3-Hook式插件化框架"><a href="#3-Hook式插件化框架" class="headerlink" title="3. Hook式插件化框架"></a>3. Hook式插件化框架</h4><ol>
+<li><p>Hook 基础 – 从入门到熟练</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.替换（把系统里面的 替换成 动态代理）</span><br><span class="line"><span class="number">2</span>.添加动态代理（做我们自己的业务逻辑）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">---- Hook 系统源码 ----&gt; TestActivity 不再AndroidManifest里面注册，也能启动</span><br><span class="line">会报错：TestActivity&#125;; have you declared <span class="keyword">this</span> activity in your AndroidManifest.xml?  没有在AndroidManifest里面注册</span><br><span class="line"></span><br><span class="line">原因：</span><br><span class="line"></span><br><span class="line">startActivity ---&gt;  TestActivity ----》 （Hook） （AMS）ActivityManagerService（检测，当前要启动的Activity是否注册了）</span><br><span class="line"></span><br><span class="line">Hook  （Hook）：</span><br><span class="line"><span class="number">1</span>.把TestActivity 替换我们真实有效的Activity</span><br><span class="line"></span><br><span class="line">startActivity(TestActivity) ---&gt; Activity --&gt; Instrumentation.execStartActivity ---&gt; ActivityManagerNative.getDefault()</span><br><span class="line"> IActivityManager.startActivity ---&gt;  (Hook)   AMS.startActivity（检测，当前要启动的Activity是否注册了）</span><br><span class="line"></span><br><span class="line"> 思想切入点：既然会得到IActivityManager，会设置IActivityManager，（寻找替换点(动态代理)）</span><br><span class="line"></span><br><span class="line"> 动态代理：由于执行startActivity之前，我们需要先执行我们的代码(把TestActivity 替换成 已经注册的 Activity)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.ASM检查过后，要把这个ProxyActivity 换回来 --&gt; TestActivity</span><br><span class="line"></span><br><span class="line">startActivity ---&gt;  TestActivity -- （Hook ProxyActivity）（AMS）检测，当前要启动的Activity是否注册了）ok ---》</span><br><span class="line">  ActivityThread（即将加载启动Activity）----(要把这个ProxyActivity 换回来 --&gt; TestActivity)</span><br><span class="line"></span><br><span class="line">Hook LAUNCH_ACTIVITY</span><br><span class="line"></span><br><span class="line">我们要在Handler。handleMessage 之前执行，就是为了(要把这个ProxyActivity 换回来 --&gt; TestActivity)，所有需要Hook</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.hook ams检查  把TestActivity 换成 ProxyActivity</span><br><span class="line"><span class="number">2</span>.hook 即将要加载Activity又把ProxyActivity 换回来了 TestActivity</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类加载  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">学习类加载之前，我们去startActivity跳转 到 插件中的Activity看会发生什么错误（分析错误的过程中学习类加载）</span><br><span class="line"></span><br><span class="line">宿主 跳转 宿主的Actvity       ok</span><br><span class="line"></span><br><span class="line">宿主 跳转 插件里面的Activity  报错</span><br><span class="line">分析错误原因，来学习Android类加载：</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: Didn<span class="string">'t find class "com.netease.plugin_package.PluginActivity" on path:</span></span><br><span class="line"><span class="string"> DexPathList[[zip file "/data/app/com.netease.hookproject-1/base.apk", zip file "/data/app/com.netease.hookproject-1/split_lib_</span></span><br><span class="line"><span class="string"> dependencies_apk.apk", zip file "/data/app/com.netease.hookproject-1/split_lib_slice_0_apk.apk", zip file "/data/app/com</span></span><br><span class="line"><span class="string"> .netease.hookproject-1/split_lib_slice_1_apk.apk", zip file "/data/app/com.netease.hookproject-1/split_lib_slice_2_apk.apk"</span></span><br><span class="line"><span class="string"> , zip file "/data/app/com.netease.hookproject-1/split_lib_slice_3_apk.apk", zip file "/data/app/com.netease.hookproject-1/s</span></span><br><span class="line"><span class="string"> plit_lib_slice_4_apk.apk", zip file "/data/app/com.netease.hookproject-1/split_lib_slice_5_apk.apk", zip file "/data/app/com</span></span><br><span class="line"><span class="string"> .netease.hookproject-1/split_lib_slice_6_apk.apk", zip file "/data/app/com.netease.hookproject-1/split_lib_slice_7_apk.apk",</span></span><br><span class="line"><span class="string"> zip file "/data/app/com.netease.hookproject-1/split_lib_slice_8_apk.apk", zip file "/data/app/com.netease.hookproject-1/spli</span></span><br><span class="line"><span class="string"> t_lib_slice_9_apk.apk"],nativeLibraryDirectories=[/vendor/lib, /system/lib]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> startActivity --&gt; AMS ---&gt; ActivityThread(把代理的Activity给换回来了) ---&gt; 要去实例化Activity （报错）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> Activity --&gt; Instrumentation ---&gt; AMS检查 ---&gt;</span></span><br><span class="line"><span class="string">    ActivityThread (即将加载)-（handleLaunchActivity 类加载Activity performLaunchActivity ---&gt; newActivity(cl == PathClassLoader)）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">分析Android中的ClassLoader：</span></span><br><span class="line"><span class="string">    1.java中的ClassLoader 和 Android的ClassLoader 是不一样</span></span><br><span class="line"><span class="string">    2.ClassLoader == PathClassLoader</span></span><br><span class="line"><span class="string">    3.PathClassLoader == cl.loadClass(className).newInstance();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">PathClassLoader.loadClass  ---》 BaseDexClassLoader --》ClassLoader.loadClass--findClass(空方法) 让覆盖的子类方法去完成 --》</span></span><br><span class="line"><span class="string">BaseDexClassLoader.findClass() ---》pathList.findClass</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BaseDexClassLoader.findClass() -- c 为什么为null，--》 DexPathList.findClass(className) ---》DexFile.loadClassBinaryName（系列步骤后 NDK）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">for遍历 dexElements == Element[] ，分析 Element 是什么 ，为什么Element.dexFile==null?</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Android虚拟机 dex文件的  dex == 对Dex表现形式的描述  Element  ---  dexFile拥有可执行</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">为什么 Element ==null?</span></span><br><span class="line"><span class="string">答：就是因为类加载机制加载的是  ---》 宿主的 classes.dex--Elements，   【没有插件的Element】</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">解决方案：把插件的dexElements 和 宿主中的 dexElements 融为一体  PathClassLoader 就能加载到 插件/宿主  都可以加载到了</span></span><br><span class="line"><span class="string">Hook式 插件化	</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">------ Android ClassLoader介绍</span></span><br><span class="line"><span class="string">1.java中的ClassLoader 和 Android的ClassLoader 是不一样</span></span><br><span class="line"><span class="string">2.Android中的ClassLoader 分为两类：系统提供的ClassLoader ---》BootClassLoader，PathClassLoader，DexClassLoader</span></span><br><span class="line"><span class="string">                                  自定义ClassLoader</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">给系统预加载使用的 ：BootClassLoader</span></span><br><span class="line"><span class="string">给程序/系统程序/应用程序 加载class的 PathClassLoader</span></span><br><span class="line"><span class="string">加载 apk zip apk文件 DexClassLoader</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1.内核启动 ...</span></span><br><span class="line"><span class="string">2.init第一个进程</span></span><br><span class="line"><span class="string">3.zygote进程</span></span><br><span class="line"><span class="string">  // 启动是很早就要启动</span></span><br><span class="line"><span class="string">  ---&gt; zygoteInit --&gt; BootClassLoader.getInstance();     handleSystemServerProcess PathClassLoaderFactory --》PathClassLoader</span></span><br><span class="line"><span class="string">4.zygote进程孵化 SystemServer</span></span><br><span class="line"><span class="string">5.SystemServer启动很多的服务 ---（AMS，PSM，...）</span></span><br><span class="line"><span class="string">// 不能在这里启动</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>宿主和插件融为一体，解决插件没有宿主环境等问题 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一步：找到宿主 dexElements 得到此对象     PathClassLoader代表是宿主</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二步：找到插件 dexElements 得到此对象，代表插件 DexClassLoader--代表插件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三步：创建出 新的 newDexElements []，类型必须是Element，必须是数组对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第四步：宿主dexElements + 插件dexElements =----&gt; 融合  新的 newDexElements for遍历</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第五步：把新的 newDexElements，设置到宿主中去</span></span><br><span class="line"></span><br><span class="line">以上操作，就可以去加载插件里面的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">需要去加载插件里面的 <span class="title">layout</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">StringBlock</span> ---》 <span class="title">string</span>.<span class="title">xml</span>  <span class="title">color</span>.<span class="title">xml</span>   <span class="title">anim</span>.<span class="title">xml</span> ...</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">mStringBlocks[] ==  string.xml  color.xml   anim.xml</span><br><span class="line"></span><br><span class="line">只有mStringBlocks[] 初始化了，才能去加载 插件里面的资源</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LoadedApk  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">占位式 插件化 ---》（stander标准） 在插件中必须使用 宿主的环境 appActivity   宿主context  ---》 插件</span><br><span class="line"></span><br><span class="line">Hook式 （宿主 和 插件 element 进行融合） 在插件中可以随意使用<span class="keyword">this</span>，既然式融合一起，插件可以使用到宿主的环境</span><br><span class="line">插件越多 内存中的 newDexElements 就会越大</span><br><span class="line"></span><br><span class="line">LoadedApk式 插件化框架的手写，我们控制 ClassLoader</span><br><span class="line">PathClassLoader ---&gt; 宿主的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">自定义<span class="title">ClassLoader</span> --》 插件的<span class="title">class</span></span></span><br><span class="line"><span class="class">解决这个问题：插件越多 内存中的 <span class="title">newDexElements</span> 就会越大</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">ActivityThread</span>源码的分析：</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">startActivity</span> ---》 <span class="title">Activity</span> --》<span class="title">Instrumentation</span> ---&gt; <span class="title">AMS</span>检查 --》</span></span><br><span class="line"><span class="class"><span class="title">ActivityThread</span> -- <span class="title">mH</span> <span class="title">LAUNCH_ACTIVITY</span>(自己处理<span class="title">LoaderApk</span>中的<span class="title">ClassLoader</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">                case LAUNCH_ACTIVITY: &#123;</span><br><span class="line">                    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">"activityStart"</span>);</span><br><span class="line">                    <span class="comment">// 跳转的Activity纪录 --》</span></span><br><span class="line">                    <span class="keyword">final</span> ActivityClientRecord r = (ActivityClientRecord) msg.obj;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 如果缓存mPackages中有LoadedApk 就直接返回，如果没有LoaaedApk就创建出LoadedApk ---》 宿主的LoadedApk.ClassLoader</span></span><br><span class="line">                    <span class="comment">// 如果是加载插件，从mPackages取出 插件专用的LoadedApk.自定义ClassLoader</span></span><br><span class="line">                    r.packageInfo = getPackageInfoNoCheck(</span><br><span class="line">                            r.activityInfo.applicationInfo, r.compatInfo);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 真正的即将 实例化Activity 然后进行启动</span></span><br><span class="line">                    handleLaunchActivity(r, <span class="keyword">null</span>, <span class="string">"LAUNCH_ACTIVITY"</span>);</span><br><span class="line">                    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">                &#125; <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.<span class="keyword">public</span> <span class="keyword">final</span> LoadedApk getPackageInfoNoCheck == 宿主的</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.缓存中的 <span class="keyword">final</span> ArrayMap&lt;String, WeakReference&lt;LoadedApk&gt;&gt; mPackages 默认保存的是宿主的LoadedApk</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">LoadedApk   ---  宿主的   ----》 LoadedApk.ClassLoader ---&gt; 宿主中的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class"><span class="title">java</span>.<span class="title">lang</span>.<span class="title">ClassLoader</span> <span class="title">cl</span> </span>= r.packageInfo.getClassLoader(); <span class="comment">// LoadedApk里面的ClassLoader</span></span><br><span class="line">(Activity)cl.loadClass(className).newInstance(); 实例化的Activity  --》 宿主的 LoadedApk里面的ClassLoader 去实例化的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">以上代码结论：宿主的LoadedApk.ClassLoader 去加载 宿主中的<span class="class"><span class="keyword">class</span>，然后实例化的</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">--- &gt; 自定义一个<span class="title">LoadedApk</span> 自定义一个<span class="title">ClassLoader</span> 用于专门加载插件里面的<span class="title">class</span>，然后实例化</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">自定义一个 <span class="title">LoadedApk</span> 然后保存 --》 <span class="title">mPackages</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">LoadedApk</span>   ---  插件的   ----》 <span class="title">LoadedApk</span>.<span class="title">ClassLoader</span> ---&gt; 插件中的<span class="title">class</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">3.梳理流程：</span></span><br><span class="line"><span class="class">  宿主：   <span class="title">startActivity</span> ---》 <span class="title">Activity</span> --》<span class="title">Instrumentation</span> ---&gt; <span class="title">AMS</span>检查 --》<span class="title">ActivityThread</span></span></span><br><span class="line"><span class="class">           <span class="title">mPackages</span>.<span class="title">value</span>取出 <span class="title">LoadedApk</span>.<span class="title">ClassLoader</span> ---&gt; 实例化<span class="title">Activity</span>  （只能加载宿主的）</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">  插件（下一节课，要完成的功能）:</span><br><span class="line">           我们在取出之前，需要自定义一个 （插件专用的 LoadedApk 自定义ClassLoader） 添加到  --》 mPackages</span><br><span class="line"></span><br><span class="line">           startActivity ---》 Activity --》Instrumentation ---&gt; AMS检查 --》ActivityThread</span><br><span class="line">           mPackages.value取出 插件专用的LoadedApk.ClassLoader --&gt; 实例化插件的Activity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  下节课的目标：绕过 PMS 的检查处理 --&gt;</span><br><span class="line"></span><br><span class="line"> 流程：startActivity ---》 Activity --》Instrumentation ---&gt; AMS检查 --》ActivityThread --》</span><br><span class="line"></span><br><span class="line">--&gt; 获取自定义的LoadedApk.ClassLoader --&gt; 实例化  initializeJavaContextClassLoader（PMS检查要启动的包名是否安装）</span><br><span class="line"></span><br><span class="line"> --&gt;生命周期方法的处理 (才能真正启动加载到 插件包里面的Activity)</span><br><span class="line"></span><br><span class="line">PMS检测 插件包包名是否安装，如果没有安装就 会抛出异常：</span><br><span class="line">java.lang.RuntimeException: Unable to instantiate application android.app.Application: java.lang.IllegalStateException:</span><br><span class="line">Unable to get <span class="keyword">package</span> info <span class="keyword">for</span> com.netease.plugin_package; is <span class="keyword">package</span> not installed?</span><br><span class="line"></span><br><span class="line">pi = pm.getPackageInfo(mPackageName, PackageManager.MATCH_DEBUG_TRIAGED_MISSING,</span><br><span class="line">                    UserHandle.myUserId());</span><br><span class="line">Hook 我们要在 getPackageInfo 执行之前 给Hook拦截住，控制pi不为<span class="keyword">null</span></span><br><span class="line">分析：pm.getPackageInfo   客户端进程 ----》 PMS进程-检测是否安装了</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插件和宿主融为一体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一步：找到宿主 dexElements 得到此对象     PathClassLoader代表是宿主</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二步：找到插件 dexElements 得到此对象，代表插件 DexClassLoader--代表插件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三步：创建出 新的 newDexElements []，类型必须是Element，必须是数组对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第四步：宿主dexElements + 插件dexElements =----&gt; 融合  新的 newDexElements for遍历</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第五步：把新的 newDexElements，设置到宿主中去</span></span><br><span class="line"></span><br><span class="line">以上操作，就可以去加载插件里面的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">需要去加载插件里面的 <span class="title">layout</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">StringBlock</span> ---》 <span class="title">string</span>.<span class="title">xml</span>  <span class="title">color</span>.<span class="title">xml</span>   <span class="title">anim</span>.<span class="title">xml</span> ...</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">mStringBlocks[] ==  string.xml  color.xml   anim.xml</span><br><span class="line"></span><br><span class="line">只有mStringBlocks[] 初始化了，才能去加载 插件里面的资源</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.占位插件化 Activity  - ProxyActivity   --》插件里面，在插件开发中，必须时时刻刻记住是 是使用宿主的环境</span><br><span class="line"><span class="number">2</span>.占位插件化 Service   - ProxyService    --》插件里面，在插件开发中，必须时时刻刻记住是 是使用宿主的环境</span><br><span class="line"><span class="number">3</span>.占位插件化 动态广播   - ProxyReceiver   --》插件里面，在插件开发中，必须时时刻刻记住是 是使用宿主的环境</span><br><span class="line"><span class="number">4</span>.占位插件化 静态广播 -- 分析系统是如何解析APK文件的，源码的阅读，阅读源码的思路，PMS入手-（模仿系统是如何解析，我们就怎么解析）（难点）</span><br><span class="line">稳定，插件化开发很痛苦   -------》 开源中的框架 插件化框架 DL</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.Hook从入门 到 熟练 --（<span class="number">1</span>.替换，<span class="number">2</span>.被替换的 动态代理/接口设置）  --&gt; Hook系统源码 -- （Hook1）AMS检测是否注册 --- （Hook2）换回来</span><br><span class="line"><span class="number">6</span>.安卓的类加载 --》PathClassLoader(加载运行App中的<span class="class"><span class="keyword">class</span>)，<span class="title">DexClassLoader</span>(<span class="title">apk</span> <span class="title">zip</span>), <span class="title">DexPathList</span> <span class="title">Element</span>，插件<span class="title">Element</span>和宿主<span class="title">Element</span></span></span><br><span class="line"><span class="class">7.真正的融合--》就可以加载插件里面的<span class="title">class</span>， 插件里面的<span class="title">Layout</span>怎么去加载呢，<span class="title">AseetManager</span> <span class="title">Resources</span>  （难点）</span></span><br><span class="line"><span class="class"><span class="title">Hook</span>式插件化框架 --》 融为一体，<span class="title">Hook</span>方式： 不用考虑宿主的环境，不稳定</span>==兼容性，  <span class="number">360</span>开源框架 Hook方式实现的</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>.LoadedApk插件化-- ActivityThread LAUNCH_ACTIVITY源码切入点，ClassLoader--》宿主 --&gt; LoadedApk.ClassLoader --&gt; 宿主<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">9.自定义<span class="title">LoadedApk</span>.自定义<span class="title">ClassLoader</span> ---&gt; 插件的<span class="title">class</span>， <span class="title">mPackages</span> -- <span class="title">size</span></span>=<span class="number">2</span>  ， 没法绕过PMS检测，检测插件包名是否安装了</span><br><span class="line"><span class="number">10</span>.开关 切换 宿主 插件，    再次运行会报错，是因为 PMS检测， Hook PMS，绕过了pi==<span class="keyword">null</span>的情况</span><br><span class="line">不稳定==兼容性</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hook代码推理技巧</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.Hook反射处理，倒序写代码，只写一行代码，推理千万行代码</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.兼容的 <span class="number">21</span> ~ <span class="number">28</span> 系统版本 -- Hook插件化框架  手写</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/（一）-架构师入门/" rel="next" title="（一） 架构师入门">
+                <i class="fa fa-chevron-left"></i> （一） 架构师入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/动画分类/" rel="prev" title="动画分类">
+                动画分类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-架构师晋级"><span class="nav-number">1.</span> <span class="nav-text">2. 架构师晋级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-换肤核心技术"><span class="nav-number">1.0.1.</span> <span class="nav-text">一. 换肤核心技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-首先分析View的创建流程"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 首先分析View的创建流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-源码分析，寻找突破点，即找一个可以换肤的节点。"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 源码分析，寻找突破点，即找一个可以换肤的节点。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-换肤实现"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 换肤实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-组件化框架设计"><span class="nav-number">1.0.2.</span> <span class="nav-text">二. 组件化框架设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-APT-Annotation-Processing-Tool"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1. APT(Annotation Processing Tool)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-工具："><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2. 工具：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-组件化里路由的基本思想"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3. 组件化里路由的基本思想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-插件化框架设计"><span class="nav-number">1.0.3.</span> <span class="nav-text">三. 插件化框架设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-原理：可安装运行的宿主APP-gt-可以通过插件化，运行调用下载到本地的没有安装的apk文件。"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1. 原理：可安装运行的宿主APP -&gt;可以通过插件化，运行调用下载到本地的没有安装的apk文件。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-占位（插桩）式插件化框架"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2. 占位（插桩）式插件化框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Hook式插件化框架"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">3. Hook式插件化框架</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

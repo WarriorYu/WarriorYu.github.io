@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术小Tips," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LinearLayout等空间在布局的根节点设置margin无效，padding有效。  CheckBox  自定义样式使用android:button=&amp;quot;@drawable/selector_edit_activity_checkbox&amp;quot;，但是paddingLeft设置的是图片与文字的间距，不是左间距，可以通过marginLeft设置左间距。 如果只需要更改CheckBox">
+<meta name="keywords" content="技术小Tips">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android技术小Tip">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/Android技术小Tip/index.html">
+<meta property="og:site_name" content="WarriorYu">
+<meta property="og:description" content="LinearLayout等空间在布局的根节点设置margin无效，padding有效。  CheckBox  自定义样式使用android:button=&amp;quot;@drawable/selector_edit_activity_checkbox&amp;quot;，但是paddingLeft设置的是图片与文字的间距，不是左间距，可以通过marginLeft设置左间距。 如果只需要更改CheckBox">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-08-05T03:40:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android技术小Tip">
+<meta name="twitter:description" content="LinearLayout等空间在布局的根节点设置margin无效，padding有效。  CheckBox  自定义样式使用android:button=&amp;quot;@drawable/selector_edit_activity_checkbox&amp;quot;，但是paddingLeft设置的是图片与文字的间距，不是左间距，可以通过marginLeft设置左间距。 如果只需要更改CheckBox">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/05/Android技术小Tip/"/>
+
+
+
+
+
+  <title>Android技术小Tip | WarriorYu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WarriorYu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">山中莫道无供给，明月清风不用钱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/Android技术小Tip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WarriorYu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WarriorYu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android技术小Tip</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T11:39:37+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li><p>LinearLayout等空间在布局的根节点设置margin无效，padding有效。</p>
+</li>
+<li><p>CheckBox</p>
+<ul>
+<li>自定义样式使用<code>android:button=&quot;@drawable/selector_edit_activity_checkbox&quot;</code>，但是paddingLeft设置的是图片与文字的间距，不是左间距，可以通过marginLeft设置左间距。</li>
+<li>如果只需要更改CheckBox的颜色，可以使用<code>android:buttonTint=&quot;@color/black&quot;</code>,但是有个版本的限制条件：<strong>Attribute buttonTint is only used in API level 21</strong></li>
+<li>CheckBox 如果在代码中设置了 <code>cbxCheck.setOnClickListener(new View.OnClickListener(){}</code> 会导致没有点击后的涟漪效果</li>
+</ul>
+</li>
+<li><p>Imageview 的tint属性：<strong>可以将图片的背景色改为想要的颜色</strong></p>
+<ul>
+<li><p>在xml文件中 <code>android:tint=&quot;@color/white&quot;</code></p>
+</li>
+<li><p>在java代码中 <code>imagview.setColorFilter(color);</code></p>
+</li>
+<li><p>扩展</p>
+<p>How to apply the color. The standard mode is{@link PorterDuff.Mode#SRC_ATOP}</p>
+<p><code>setColorFilter(int color, PorterDuff.Mode mode)</code></p>
+</li>
+</ul>
+</li>
+<li><p>前后台接口里的字段类型一定一致，否则会出现不可预知的bug:</p>
+<ul>
+<li>如果后台字段是String类型，前台是long类型，如果后台传了null，可能会导致奔溃，如果后台是long类型，不会出现null,即使没有这个字段，前台也会有默认值，减少崩溃率。不要每个字段判空，这是最low的，会导致项目里全是if else.</li>
+</ul>
+</li>
+<li><p>如果想下载的sdk不能通过代理下载，注意在gradle.properties文件里，把相关代码删除或者注释。</p>
+<p>报错信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Unable to resolve dependency for &apos;:app@debug/compileClasspath&apos;: Could not resolve com.mob:MobTools:+.</span><br><span class="line"></span><br><span class="line">Could not resolve com.mob:MobTools:+.</span><br><span class="line">Required by:</span><br><span class="line">    project :app</span><br><span class="line"> &gt; Could not resolve com.mob:MobTools:+.</span><br><span class="line">    &gt; Failed to list versions for com.mob:MobTools.</span><br><span class="line">          &gt; Unable to load Maven meta-data from http://jcenter.bintray.com/com/mob/MobTools/maven-metadata.xml.</span><br><span class="line">                   &gt; Could not get resource &apos;http://jcenter.bintray.com/com/mob/MobTools/maven-metadata.xml&apos;.</span><br><span class="line">                               &gt; Could not GET &apos;http://jcenter.bintray.com/com/mob/MobTools/maven-metadata.xml&apos;.</span><br><span class="line">                                              &gt; Connect to 127.0.0.1:1080 [/127.0.0.1] failed: Connection refused (Connection refused)</span><br><span class="line">                                                                &gt; Connection refused (Connection refused)</span><br></pre></td></tr></table></figure>
+<p>解决方式：关闭代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">android.enableAapt2=false</span><br><span class="line">#如果需要代理把这两行放开</span><br><span class="line">#systemProp.http.proxyHost=127.0.0.1</span><br><span class="line">#systemProp.http.proxyPort=1080</span><br><span class="line">org.gradle.jvmargs=-Xmx2048m -XX\:MaxPermSize\=512m -XX\:+HeapDumpOnOutOfMemoryError -Dfile.encoding\=UTF-8</span><br><span class="line">org.gradle.daemon=true</span><br><span class="line">org.gradle.configureondemand=true</span><br><span class="line">org.gradle.parallel=true</span><br><span class="line">android.useDeprecatedNdk=true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RecyclerView等列表控件，如果获取position的item时要注意有header和没有header的情况，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">以BaseRecyclerViewAdapterHelper 这个库举例：</span><br><span class="line"></span><br><span class="line">//因为有addHeaderView,所以position的计算一定不能少了减去getHeaderLayoutCount()</span><br><span class="line">  int position = mViewHolder.get(i).getLayoutPosition() - getHeaderLayoutCount();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Recyclerview:adapter.notifyDataSetChanged()类似的刷新方法，会引起已缓存的ViewHolder相应的onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)方法的调用，因为复用，并不会把整个列表都刷新一遍</p>
+</li>
+<li><p>代码压缩、混淆相关 ：参见：<a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn" target="_blank" rel="noopener">https://developer.android.com/studio/build/shrink-code?hl=zh-cn</a></p>
+</li>
+<li><p>TextView的自动适应文字大小属性：app:autoSizeTextType=”uniform”兼容到API14，</p>
+<p>如果android:autoSizeTextType=”uniform”不能兼容Android 8.0以下的手机。和android:singleLine不兼容，会显示“…”,可以使用android:maxLines=“1” 。width和height要写死，否则在Recyclerview中滑动的时候，可能会导致缩放不符合预期。</p>
+</li>
+<li><p>抽象类A实现接口B，A可以实现B中的部分方法，也可以全部实现。</p>
+</li>
+<li><p>音频详情问题：1.为什么PendingIntent的数据没有传过来。是序列化的问题，改为传递基本类型 2.为什么在initViews()调用finish方法，还会走到fillData();</p>
+</li>
+<li><p>沉浸式状态栏，根布局”android:fitsSystemWindows”的影响要注意。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术小Tips/" rel="tag"># 技术小Tips</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/音视频开发分享-星陨/" rel="next" title="音视频开发分享(星陨)">
+                <i class="fa fa-chevron-left"></i> 音视频开发分享(星陨)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WarriorYu" />
+            
+              <p class="site-author-name" itemprop="name">WarriorYu</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WarriorYu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="soldieryu.dev@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WarriorYu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
